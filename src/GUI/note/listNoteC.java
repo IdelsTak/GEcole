@@ -1,4 +1,3 @@
-
 package GUI.note;
 
 import DAO.AppartientDAO;
@@ -31,18 +30,22 @@ import javafx.scene.layout.BorderPane;
 
 public class listNoteC implements Initializable {
 
-    @FXML private JFXButton action;
-    @FXML private JFXComboBox<String> cmb_classe;
+    @FXML
+    private JFXButton action;
+    @FXML
+    private JFXComboBox<String> cmb_classe;
     private ArrayList<Integer> id_class = new ArrayList<>();
     private ArrayList<Integer> id_elves = new ArrayList<>();
-    @FXML private TableView<Note> tableview;
-    @FXML private TableColumn<Note, String> col_nom;
-    
+    @FXML
+    private TableView<Note> tableview;
+    @FXML
+    private TableColumn<Note, String> col_nom;
+
     private MatiereDAO matdao = new MatiereDAO();
-    private EleveDAO   elvdao = new EleveDAO();
-    private NoteDAO    notdao = new NoteDAO();
+    private EleveDAO elvdao = new EleveDAO();
+    private NoteDAO notdao = new NoteDAO();
     private AppartientDAO appdao = new AppartientDAO();
-    private ClasseDAO  classdao = new ClasseDAO();            
+    private ClasseDAO classdao = new ClasseDAO();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -88,11 +91,11 @@ public class listNoteC implements Initializable {
 
     @FXML
     private void imprimerNotes(ActionEvent event) {
-        for (int i=0;i < tableview.getItems().size();i++){
+        for (int i = 0; i < tableview.getItems().size(); i++) {
             tableview.getColumns().get(i).getText();
             ObservableList<TableColumn<Note, ?>> columns = tableview.getColumns();
-            for (int j=0;j<columns.size();j++){
-                System.out.println(columns.get(j).getText() +": " +columns.get(j).getCellObservableValue(i));
+            for (int j = 0; j < columns.size(); j++) {
+                System.out.println(columns.get(j).getText() + ": " + columns.get(j).getCellObservableValue(i));
             }
         }
     }
@@ -100,12 +103,12 @@ public class listNoteC implements Initializable {
     private void init_data() {
 
         tableview.getItems().clear();
-        while(tableview.getColumns().size()>1){
+        while (tableview.getColumns().size() > 1) {
             tableview.getColumns().remove(1);
         }
         id_class.clear();
         id_elves.clear();
-                
+
         col_nom.setCellValueFactory(cellData -> {
             Eleve e = elvdao.find(cellData.getValue().getRef_e());
             if (e != null) {
@@ -126,7 +129,7 @@ public class listNoteC implements Initializable {
                 }
                 return new SimpleStringProperty("" + notdao.getNote(e.getRef_e(), m.getId_m()));
             });
-            tableview.getColumns().add(col);            
+            tableview.getColumns().add(col);
         }
 
         ObservableList<Classe> allc = classdao.getAll();
@@ -162,20 +165,19 @@ public class listNoteC implements Initializable {
         tableview.getItems().clear();
     }
 
-    
-    private void deduplication(){
-         TableColumn e  = tableview.getColumns().get(0);
-         for (int i=0;i<tableview.getItems().size();i++){
-             if (e.getCellData(i).equals(e.getCellData(i+1)))
-                 tableview.getItems().remove(i);
-         }
-                          
-    }
-    
+    private void deduplication() {
+        TableColumn e = tableview.getColumns().get(0);
+        for (int i = 0; i < tableview.getItems().size(); i++) {
+            if (e.getCellData(i).equals(e.getCellData(i + 1))) {
+                tableview.getItems().remove(i);
+            }
+        }
 
-    private void fill_rows(){
+    }
+
+    private void fill_rows() {
         tableview.getItems().clear();
-         ObservableList<Eleve> all1 = elvdao.getAll();
+        ObservableList<Eleve> all1 = elvdao.getAll();
         ObservableList<Note> nts = notdao.getAll();
         for (Eleve e : all1) {
             if (appdao.appartient(id_class.get(cmb_classe.getSelectionModel().getSelectedIndex()), e.getId_e())) {
@@ -187,13 +189,14 @@ public class listNoteC implements Initializable {
                 }
             }
         }
-        
+
     }
+
     @FXML
     private void class_changed(ActionEvent event) {
-     //   init_data();
-     
-     fill_rows();
+        //   init_data();
+
+        fill_rows();
         deduplication();
     }
 }

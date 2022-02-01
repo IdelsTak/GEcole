@@ -1,4 +1,3 @@
-
 package GUI.absence;
 
 import DAO.AbsenceDAO;
@@ -34,24 +33,32 @@ import javafx.util.Callback;
 
 public class list_absence implements Initializable {
 
-    @FXML private TableColumn<Absence, String> colonne_identifiant;
-    @FXML private TableColumn<Absence, String> colonne_nom;
-    @FXML private TableColumn<Absence, String> colonne_dateabs;
-    @FXML private TableColumn<Absence, String> colonne_seance;
-    @FXML private TableColumn<Absence, String> colonne_cocher;
-    @FXML private JFXTextField nom;
-    @FXML private JFXTextField dateabs;
-    @FXML private TableView<Absence> table_abs;
+    @FXML
+    private TableColumn<Absence, String> colonne_identifiant;
+    @FXML
+    private TableColumn<Absence, String> colonne_nom;
+    @FXML
+    private TableColumn<Absence, String> colonne_dateabs;
+    @FXML
+    private TableColumn<Absence, String> colonne_seance;
+    @FXML
+    private TableColumn<Absence, String> colonne_cocher;
+    @FXML
+    private JFXTextField nom;
+    @FXML
+    private JFXTextField dateabs;
+    @FXML
+    private TableView<Absence> table_abs;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {      
-        
+    public void initialize(URL location, ResourceBundle resources) {
+
         table_abs.getSelectionModel().setCellSelectionEnabled(false);
         table_abs.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         colonne_cocher.setCellFactory(callback_fn_select);
         colonne_identifiant.setCellValueFactory(cellData -> {
-           return new SimpleStringProperty(String.valueOf(cellData.getValue().getId_absence()));
-       });
+            return new SimpleStringProperty(String.valueOf(cellData.getValue().getId_absence()));
+        });
         colonne_nom.setCellValueFactory(value -> {
             Eleve e = new EleveDAO().find(value.getValue().getRef_e());
             if (e != null) {
@@ -59,7 +66,7 @@ public class list_absence implements Initializable {
             } else {
                 return new SimpleStringProperty("");
             }
-        });        
+        });
         colonne_dateabs.setCellValueFactory(value -> {
             String rs = value.getValue().getDate_abs().toString();
             return new SimpleStringProperty(rs.substring(0, rs.indexOf(" ")));
@@ -67,20 +74,23 @@ public class list_absence implements Initializable {
         colonne_seance.setCellValueFactory(value -> {
             int id = value.getValue().getRef_sc();
             switch (id) {
-                case  0: return new SimpleStringProperty("8h a 10h");             
-                case  1: return new SimpleStringProperty("10h a 12h");
-                case  2: return new SimpleStringProperty("14h a 16h");
-                case  3: return new SimpleStringProperty("16h a 18h");
-             
+                case 0:
+                    return new SimpleStringProperty("8h a 10h");
+                case 1:
+                    return new SimpleStringProperty("10h a 12h");
+                case 2:
+                    return new SimpleStringProperty("14h a 16h");
+                case 3:
+                    return new SimpleStringProperty("16h a 18h");
+
                 default:
                     return new SimpleStringProperty(" . ");
             }
         });
         table_abs.getItems().setAll(new AbsenceDAO().getAll());
-        
-        
+
         FilteredList<Absence> filteredData = new FilteredList<>(table_abs.getItems(), p -> true);
-        
+
         nom.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(x -> {
                 if (newValue == null || newValue.isEmpty()) {
@@ -93,8 +103,8 @@ public class list_absence implements Initializable {
                 }
                 return false;
             });
-        });      
-         dateabs.textProperty().addListener((observable, oldValue, newValue) -> {
+        });
+        dateabs.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(salle -> {
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
@@ -102,14 +112,14 @@ public class list_absence implements Initializable {
                 String f = newValue.toLowerCase();
                 if (String.valueOf(salle.getDate_abs()).toLowerCase().contains(f)) {
                     return true;
-                } 
+                }
                 return false;
             });
         });
         SortedList<Absence> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(table_abs.comparatorProperty());
         table_abs.setItems(sortedData);
-        
+
     }
 
     @FXML
@@ -150,7 +160,7 @@ public class list_absence implements Initializable {
 
     @FXML
     private void supprimer_abs(ActionEvent event) {
-            if (table_abs.getSelectionModel().getSelectedItems().size() > 0) {
+        if (table_abs.getSelectionModel().getSelectedItems().size() > 0) {
             ObservableList<Absence> liste = table_abs.getSelectionModel().getSelectedItems();
             liste.forEach((l) -> {
                 new AbsenceDAO().delete(l.getId_absence());
@@ -178,10 +188,10 @@ public class list_absence implements Initializable {
     }
 
     private void refresh() {
-            table_abs.getItems().clear();
-            table_abs.setItems(new AbsenceDAO().getAll());
+        table_abs.getItems().clear();
+        table_abs.setItems(new AbsenceDAO().getAll());
     }
-    
+
     private ArrayList<Integer> selected_ids = new ArrayList<Integer>();
 
     Callback<TableColumn<Absence, String>, TableCell<Absence, String>> callback_fn_select = new Callback<TableColumn<Absence, String>, TableCell<Absence, String>>() {

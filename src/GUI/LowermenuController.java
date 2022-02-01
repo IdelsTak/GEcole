@@ -1,6 +1,5 @@
 package GUI;
 
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,7 +33,8 @@ public class LowermenuController implements Initializable {
             System.out.println("erreur i/o 2: " + exception);
         }
     }
-        @FXML
+
+    @FXML
     private void goto_login(ActionEvent event) {
         ODB.OracleDBSingleton.seDeconnecter();
         Node source = (Node) event.getSource();
@@ -46,6 +46,5 @@ public class LowermenuController implements Initializable {
             System.out.println("erreur i/o 2: " + exception);
         }
     }
-
 
 }

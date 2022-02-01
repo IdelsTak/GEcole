@@ -63,7 +63,7 @@ public class GestionEleveController implements Initializable {
     @FXML
     private TableColumn<Eleve, String> modifCol;
     @FXML
-    private TableColumn<Eleve, String> cochCol,idCol;
+    private TableColumn<Eleve, String> cochCol, idCol;
 
     private ObservableList<Eleve> masterData = FXCollections.observableArrayList();
     @FXML
@@ -75,9 +75,9 @@ public class GestionEleveController implements Initializable {
     @FXML
     private JFXTextField dateInsF;
 
-private ArrayList<Integer> selected_ids = new ArrayList<Integer>();
+    private ArrayList<Integer> selected_ids = new ArrayList<Integer>();
 
-Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>> callback_fn_editer_eleve = new Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>>() {
+    Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>> callback_fn_editer_eleve = new Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>>() {
         @Override
         public TableCell call(final TableColumn param) {
             final TableCell cell = new TableCell() {
@@ -107,8 +107,9 @@ Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>> callback_fn_edite
                                         border.setCenter((AnchorPane) root);
                                         if (controller != null) {
                                             controller.edit_eleve(item.getId_e());
+                                        } else {
+                                            System.out.println("nul: ");
                                         }
-                                        else System.out.println("nul: ");
                                     } catch (Exception exception) {
                                         System.out.println("erreur i/o: " + exception);
                                     }
@@ -123,7 +124,7 @@ Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>> callback_fn_edite
             return cell;
         }
     };
-Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>> callback_fn_select_eleve = new Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>>() {
+    Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>> callback_fn_select_eleve = new Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>>() {
         @Override
         public TableCell call(final TableColumn param) {
             final TableCell cell = new TableCell() {
@@ -158,13 +159,14 @@ Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>> callback_fn_selec
             return cell;
         }
     };
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initCol();
-        
+
     }
 
-        @FXML
+    @FXML
     private void user_selection(MouseEvent event) {
         update_selection();
     }
@@ -189,10 +191,10 @@ Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>> callback_fn_selec
         }
     }
 
-
-    private void refresh(){
-            click_chercher(new ActionEvent(nomCol,nomCol));
+    private void refresh() {
+        click_chercher(new ActionEvent(nomCol, nomCol));
     }
+
     @FXML
     private void click_retour(ActionEvent event) {
         try {
@@ -206,25 +208,20 @@ Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>> callback_fn_selec
         }
     }
 
-
-
     @FXML
     private void click_chercher(ActionEvent event) {
         DAO elevedao = new EleveDAO();
         masterData = elevedao.getAll();
         tableView.setItems(masterData);
-        
+
         nomEleveF.setText("");
         idEleveF.setText("");
         dateNaissF.setText("");
         dateInsF.setText("");
-        
-        
-        
 
         FilteredList<Eleve> filteredData = new FilteredList<>(masterData, p -> true);
 
-         nomEleveF.textProperty().addListener((observable, oldValue, newValue) -> {
+        nomEleveF.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(eleve -> {
 
                 if (newValue == null || newValue.isEmpty()) {
@@ -241,7 +238,7 @@ Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>> callback_fn_selec
                 return false;
             });
         });
-         idEleveF.textProperty().addListener((observable, oldValue, newValue) -> {
+        idEleveF.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(eleve -> {
 
                 if (newValue == null || newValue.isEmpty()) {
@@ -250,14 +247,14 @@ Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>> callback_fn_selec
 
                 String idFilter = newValue;
 
-                if (eleve.id_eProperty().toString().contains(idFilter)){
+                if (eleve.id_eProperty().toString().contains(idFilter)) {
                     return true;
                 }
                 return false;
             });
         });
 
-         dateNaissF.textProperty().addListener((observable, oldValue, newValue) -> {
+        dateNaissF.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(eleve -> {
 
                 if (newValue == null || newValue.isEmpty()) {
@@ -266,14 +263,14 @@ Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>> callback_fn_selec
 
                 String idFilter = newValue;
 
-                if (eleve.dateNaissProperty().toString().contains(idFilter)){
+                if (eleve.dateNaissProperty().toString().contains(idFilter)) {
                     return true;
                 }
                 return false;
             });
         });
-         
-         dateInsF.textProperty().addListener((observable, oldValue, newValue) -> {
+
+        dateInsF.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(eleve -> {
 
                 if (newValue == null || newValue.isEmpty()) {
@@ -282,14 +279,13 @@ Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>> callback_fn_selec
 
                 String idFilter = newValue;
 
-                if (eleve.dateInsProperty().toString().contains(idFilter)){
+                if (eleve.dateInsProperty().toString().contains(idFilter)) {
                     return true;
                 }
                 return false;
             });
         });
-         
- 
+
         // 3. Wrap the FilteredList in a SortedList.
         SortedList<Eleve> sortedData = new SortedList<>(filteredData);
 
@@ -299,15 +295,11 @@ Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>> callback_fn_selec
         // 5. Add sorted (and filtered) data to the table.
         tableView.setItems(sortedData);
 
-
     }
 
     private void click_modifier() {
 
-
-
-
-                try {
+        try {
             URL loader = getClass().getResource("modEleve.fxml");
             AnchorPane middle = FXMLLoader.load(loader);
 
@@ -317,9 +309,7 @@ Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>> callback_fn_selec
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-
     }
-
 
     @FXML
     private void click_supp(ActionEvent event) {
@@ -327,7 +317,7 @@ Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>> callback_fn_selec
             EleveDAO dao = new EleveDAO();
             ObservableList<Eleve> liste = tableView.getSelectionModel().getSelectedItems();
             for (Eleve l : liste) {
-                System.out.println("suppression de "+l.getId_e()+" ..");
+                System.out.println("suppression de " + l.getId_e() + " ..");
                 dao.delete(l.getId_e());
                 System.out.println("suppression ok");
                 try {
@@ -363,29 +353,21 @@ Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>> callback_fn_selec
         nomCol.setCellValueFactory(cellData -> cellData.getValue().fullnomProperty());
         dateCol.setCellValueFactory(cellData -> {
             Date d = cellData.getValue().getDateNaiss();
-          return new SimpleStringProperty(String.valueOf(d).substring(0,String.valueOf(d).indexOf(" ")));  
+            return new SimpleStringProperty(String.valueOf(d).substring(0, String.valueOf(d).indexOf(" ")));
         });
         sexCol.setCellValueFactory(cellData -> cellData.getValue().sexProperty());
-        
+
         dateinsCol.setCellValueFactory(cellData -> {
-          return new SimpleStringProperty(cellData.getValue().getSDateIns().substring(0,cellData.getValue().getSDateIns().indexOf(" ")));  
+            return new SimpleStringProperty(cellData.getValue().getSDateIns().substring(0, cellData.getValue().getSDateIns().indexOf(" ")));
         });
-        
+
         modifCol.setCellFactory(callback_fn_editer_eleve);
         cochCol.setCellFactory(callback_fn_select_eleve);
-        
-        idCol.setCellValueFactory( cellData -> {
-            return new SimpleStringProperty(""+cellData.getValue().getId_e());
+
+        idCol.setCellValueFactory(cellData -> {
+            return new SimpleStringProperty("" + cellData.getValue().getId_e());
         });
 
-
     }
 
-
-
-    }
-
-
-
-
-
+}

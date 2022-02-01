@@ -12,7 +12,7 @@ public class Absence {
 
     public Absence() {
         date_abs = new Date();
-        id_absence=-1;
+        id_absence = -1;
         ref_sc = -1;
         ref_e = -1;
     }

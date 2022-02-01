@@ -1,6 +1,7 @@
 package Models;
 
 public class Parent {
+
     private int ID_PARENT;
     private String NOMP;
     private String PROFP;

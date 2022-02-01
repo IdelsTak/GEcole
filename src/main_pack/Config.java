@@ -24,8 +24,8 @@ public class Config {
         try {
             out = Files.createFile(Paths.get(fichier_de_preference));
         } catch (Exception faee) {
-            
-         }
+
+        }
         this.prefs = new HashMap<>();
         //preference oracle
         prefs.put("dbusername", "user");
@@ -81,33 +81,35 @@ public class Config {
             file_reader.close();
             valide = true;
         } catch (IOException exception) {
-            System.out.println("Erreur lors du chargement du fichier des preferences\nException : "+exception);
+            System.out.println("Erreur lors du chargement du fichier des preferences\nException : " + exception);
         } finally {
             return valide;
         }
     }
 
     public String get_data(String key) {
-        String resultat ="";
+        String resultat = "";
         if (prefs.containsKey(key.toLowerCase())) {
             resultat = prefs.get(key.toLowerCase()).toString();
         }
         return resultat;
     }
-        public void set_data(String key,String value) {
-           if (prefs.containsKey(key.toLowerCase())) {
-                prefs.put(key.toLowerCase(), value);
-            }
+
+    public void set_data(String key, String value) {
+        if (prefs.containsKey(key.toLowerCase())) {
+            prefs.put(key.toLowerCase(), value);
+        }
     }
 
-    private static String color_error = (char)27 + "[43;31m " ;
-    private static String color_info = (char)27 + "[47;30m " ;
-    private static String color_norm =  (char)27 + "[0m" ;
+    private static String color_error = (char) 27 + "[43;31m ";
+    private static String color_info = (char) 27 + "[47;30m ";
+    private static String color_norm = (char) 27 + "[0m";
 
-    public static String error(String msg){
+    public static String error(String msg) {
         return Config.color_error + msg + color_norm;
     }
-    public static String info(String msg){
-        return Config.color_info + msg +color_norm;
+
+    public static String info(String msg) {
+        return Config.color_info + msg + color_norm;
     }
 }

@@ -10,8 +10,8 @@ and open the template in the editor.
 
 .upperbox{
     -fx-border-style:hidden hidden solid hidden;
-        -fx-border-width: 1px;
-        -fx-border-color:lightgray;
+    -fx-border-width: 1px;
+    -fx-border-color:lightgray;
 }
 
 .backbtn:hover{
@@ -20,9 +20,9 @@ and open the template in the editor.
 
 .leftbox{
     -fx-border-style:hidden solid hidden solid;
-        -fx-border-width: 1px;
-        -fx-border-color:lightgray;
-       
+    -fx-border-width: 1px;
+    -fx-border-color:lightgray;
+
 }
 
 .mainbtn{
@@ -51,18 +51,18 @@ and open the template in the editor.
 }
 
 .optionbtn{
-   -fx-text-align:center;
+    -fx-text-align:center;
     -fx-font-style:oblique;
     -fx-font-weight:bold;
     -fx-text-fill:mediumseagreen;
-    -fx-font-size:11; 
+    -fx-font-size:11;
 }
 .optionbtn:hover{
-   -fx-text-align:center;
+    -fx-text-align:center;
     -fx-font-style:oblique;
     -fx-font-weight:bold;
     -fx-text-fill:white;
-    -fx-font-size:11; 
+    -fx-font-size:11;
     -fx-background-color:lightseagreen;
 }
 
@@ -73,11 +73,11 @@ and open the template in the editor.
 .fielderror{
     -fx-text-fill:red;
     -fx-unfocus-color:red;
-    
+
 }
 
 .txtfield{
-    
+
 }
 
 .labels{

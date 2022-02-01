@@ -19,14 +19,14 @@ public class AppartientDAO {
     }
 
     // assigne un ou plusieur eleve a une classe
-    public int assigner(int id_classe, int ... id_eleves) {
+    public int assigner(int id_classe, int... id_eleves) {
         int s = 0;
         for (int i = 0; i < id_eleves.length; i++) {
             String requete = "INSERT INTO APPARTIENT (REF_C  , REF_E ) VALUES ( ? , ? )";
             PreparedStatement ps;
             try {
                 ps = session.prepareStatement(requete);
-                ps.setInt(1,id_classe);
+                ps.setInt(1, id_classe);
                 ps.setInt(2, id_eleves[i]);
                 s += ps.executeUpdate();
             } catch (SQLException ex) {
@@ -36,14 +36,15 @@ public class AppartientDAO {
         //mettre_a_jour_nb_eleves();
         return s;
     }
-        public int retirer(int id_classe, int ... id_eleves) {
+
+    public int retirer(int id_classe, int... id_eleves) {
         int s = 0;
         for (int i = 0; i < id_eleves.length; i++) {
             String requete = "DELETE FROM APPARTIENT WHERE ( REF_C  = ? AND  REF_E = ? )";
             PreparedStatement ps;
             try {
                 ps = session.prepareStatement(requete);
-                ps.setInt(1,id_classe);
+                ps.setInt(1, id_classe);
                 ps.setInt(2, id_eleves[i]);
                 s += ps.executeUpdate();
             } catch (SQLException ex) {
@@ -53,42 +54,41 @@ public class AppartientDAO {
         //mettre_a_jour_nb_eleves();
         return s;
     }
-    
-    public boolean  appartient(int id_c , int id_e){
+
+    public boolean appartient(int id_c, int id_e) {
         boolean appartient = false;
-        String requete = "SELECT * FROM APPARTIENT WHERE REF_C = ? AND REF_E = ? " ;
+        String requete = "SELECT * FROM APPARTIENT WHERE REF_C = ? AND REF_E = ? ";
         PreparedStatement ps;
-            try {
-                ps = session.prepareStatement(requete);
-                ps.setInt(1,id_c);
-                ps.setInt(2, id_e);
-                ResultSet rs = ps.executeQuery();
-                while (rs.next()){
-                    appartient = true;
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(AppartientDAO.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+            ps = session.prepareStatement(requete);
+            ps.setInt(1, id_c);
+            ps.setInt(2, id_e);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                appartient = true;
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(AppartientDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return appartient;
     }
-    public boolean  appartient(int id_e){
+
+    public boolean appartient(int id_e) {
         boolean appartient = false;
-        String requete = "SELECT * FROM APPARTIENT WHERE REF_E = ? " ;
+        String requete = "SELECT * FROM APPARTIENT WHERE REF_E = ? ";
         PreparedStatement ps;
-            try {
-                ps = session.prepareStatement(requete);
-                ps.setInt(1, id_e);
-                ResultSet rs = ps.executeQuery();
-                while (rs.next()){
-                    appartient = true;
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(AppartientDAO.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+            ps = session.prepareStatement(requete);
+            ps.setInt(1, id_e);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                appartient = true;
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(AppartientDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return appartient;
     }
-    
-    
+
     // a remplacer par un trigger oracle
-    
 }

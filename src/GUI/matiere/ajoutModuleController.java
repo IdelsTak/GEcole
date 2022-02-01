@@ -41,7 +41,7 @@ public class ajoutModuleController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        niveau.getItems().addAll("1","2","3","4","5","6");
+        niveau.getItems().addAll("1", "2", "3", "4", "5", "6");
         niveau.getSelectionModel().select(0);
     }
 
@@ -98,6 +98,7 @@ public class ajoutModuleController implements Initializable {
     @FXML
     private void reinit(ActionEvent event) {
     }
+
     @FXML
     private void listMod(ActionEvent event) {
         try {
@@ -110,7 +111,8 @@ public class ajoutModuleController implements Initializable {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-        @FXML
+
+    @FXML
     private void ajoutMod(ActionEvent event) {
         try {
             URL loader = getClass().getResource("ajoutModule.fxml");
@@ -122,7 +124,7 @@ public class ajoutModuleController implements Initializable {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     void edit_module(int id) {
         action.setText("Modifier Module");
         action.setOnAction((e) -> {
@@ -135,6 +137,7 @@ public class ajoutModuleController implements Initializable {
             niveau.setValue("" + String.valueOf(mod.getRef_niv()).charAt(0));
         }
     }
+
     private void update_module(int x) {
         if (x != -1) {
             ModuleDAO dao = new ModuleDAO();

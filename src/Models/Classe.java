@@ -21,25 +21,26 @@ public class Classe {
     private SimpleStringProperty nom;
     private SimpleIntegerProperty capacite;
     private SimpleIntegerProperty ref_niv;
-    
+
     private SimpleIntegerProperty nbE;
-    
+
     private BooleanProperty cocher = new SimpleBooleanProperty(false);
 
     //Constructeurs
-    public Classe(){
+    public Classe() {
         this.id_c = new SimpleIntegerProperty();
         this.nom = new SimpleStringProperty("");
         this.capacite = new SimpleIntegerProperty();
         this.ref_niv = new SimpleIntegerProperty();
-        this.nbE= new SimpleIntegerProperty();
+        this.nbE = new SimpleIntegerProperty();
     }
+
     public Classe(int id_c, String nom, int capacite, int ref_niv, int nbE) {
         this.id_c = new SimpleIntegerProperty(id_c);
         this.nom = new SimpleStringProperty(nom);
         this.capacite = new SimpleIntegerProperty(capacite);
         this.ref_niv = new SimpleIntegerProperty(ref_niv);
-       
+
     }
 
     //Setters & Getters
@@ -74,36 +75,37 @@ public class Classe {
     public void setRef_niv(int ref_niv) {
         this.ref_niv.set(ref_niv);
     }
+
     //Property return
-    public SimpleIntegerProperty id_cProperty(){
+    public SimpleIntegerProperty id_cProperty() {
         return id_c;
     }
-    
-    public SimpleStringProperty nomProperty(){
+
+    public SimpleStringProperty nomProperty() {
         return nom;
     }
-    
-    public SimpleIntegerProperty capaciteProperty(){
+
+    public SimpleIntegerProperty capaciteProperty() {
         return capacite;
     }
-    
-    public SimpleIntegerProperty ref_nivProperty(){
+
+    public SimpleIntegerProperty ref_nivProperty() {
         return ref_niv;
     }
-    
-    public SimpleIntegerProperty nivProperty(){
-        return new SimpleIntegerProperty(ref_niv.get()/10000);
+
+    public SimpleIntegerProperty nivProperty() {
+        return new SimpleIntegerProperty(ref_niv.get() / 10000);
     }
-    
-    public SimpleIntegerProperty anneeProperty(){
-        return new SimpleIntegerProperty(ref_niv.get()%10000);
+
+    public SimpleIntegerProperty anneeProperty() {
+        return new SimpleIntegerProperty(ref_niv.get() % 10000);
     }
-    
-    public SimpleStringProperty anneeSProperty(){
-        return new SimpleStringProperty(""+ref_niv.get()%10000+"-"+(ref_niv.get()%10000+1));
+
+    public SimpleStringProperty anneeSProperty() {
+        return new SimpleStringProperty("" + ref_niv.get() % 10000 + "-" + (ref_niv.get() % 10000 + 1));
     }
-    
-     public SimpleIntegerProperty nbEProperty(){
+
+    public SimpleIntegerProperty nbEProperty() {
         return new SimpleIntegerProperty(nbE.get());
     }
 
@@ -114,18 +116,18 @@ public class Classe {
     public void setNbE(int nbE) {
         this.nbE.set(nbE);
     }
-    
+
     //cocher property
-     public BooleanProperty cocherProperty() {
-            return cocher;
-        }
+    public BooleanProperty cocherProperty() {
+        return cocher;
+    }
 
-        public void setCocher(boolean cocher) {
-            this.cocher.set(cocher);
-        }
+    public void setCocher(boolean cocher) {
+        this.cocher.set(cocher);
+    }
 
-        public boolean isCocher() {
-            return cocher.get();
-        }
-    
+    public boolean isCocher() {
+        return cocher.get();
+    }
+
 }

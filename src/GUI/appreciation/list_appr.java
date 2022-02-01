@@ -1,4 +1,3 @@
-
 package GUI.appreciation;
 
 import Models.Appreciation;
@@ -14,15 +13,19 @@ import javafx.scene.input.MouseEvent;
 
 public class list_appr implements Initializable {
 
-    @FXML  private TableView<Appreciation> table_appr;
-    @FXML  private TableColumn<Appreciation, String> colonne_id;
-    @FXML  private TableColumn<Appreciation, String> colonne_eleve,colonne_inst,colonne_module,colonne_contenu,colonne_modifier,colonne_cocher;
-    @FXML  private JFXTextField id_inst,id_eleve;
+    @FXML
+    private TableView<Appreciation> table_appr;
+    @FXML
+    private TableColumn<Appreciation, String> colonne_id;
+    @FXML
+    private TableColumn<Appreciation, String> colonne_eleve, colonne_inst, colonne_module, colonne_contenu, colonne_modifier, colonne_cocher;
+    @FXML
+    private JFXTextField id_inst, id_eleve;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     @FXML
     private void goto_admin_main(ActionEvent event) {
@@ -47,5 +50,5 @@ public class list_appr implements Initializable {
     @FXML
     private void user_selection(MouseEvent event) {
     }
-    
+
 }

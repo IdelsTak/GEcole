@@ -1,6 +1,5 @@
 package GUI;
 
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,12 +15,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import main_pack.Main_class;
 
-
-public class MainwindowController implements Initializable  {
+public class MainwindowController implements Initializable {
 
     @FXML
     private AnchorPane anchor;
-
 
     @FXML
     void click_geleves(ActionEvent event) {
@@ -69,7 +66,7 @@ public class MainwindowController implements Initializable  {
 
     @FXML
     private void click_gemplois(ActionEvent event) {
-     Node source = (Node) event.getSource();
+        Node source = (Node) event.getSource();
         Scene scene = (Scene) source.getScene();
         BorderPane border = (BorderPane) scene.getRoot();
         try {
@@ -120,7 +117,7 @@ public class MainwindowController implements Initializable  {
 
     @FXML
     private void click_absence(ActionEvent event) {
-                try {
+        try {
             URL loader = getClass().getResource("absence/add_absence.fxml");
             AnchorPane middle = FXMLLoader.load(loader);
 
@@ -133,7 +130,7 @@ public class MainwindowController implements Initializable  {
 
     @FXML
     private void click_apprs(ActionEvent event) {
-                        try {
+        try {
             URL loader = getClass().getResource("appreciation/add_appr.fxml");
             AnchorPane middle = FXMLLoader.load(loader);
 

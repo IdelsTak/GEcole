@@ -1,5 +1,5 @@
-
 package Models;
+
 import java.util.Date;
 import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
@@ -10,6 +10,7 @@ import javafx.beans.property.SimpleStringProperty;
 //type de données doivent correspondre a la table INST
 
 public class Instituteur {
+
     //attributs
     private SimpleIntegerProperty id_i;
     private SimpleStringProperty nom;
@@ -26,47 +27,47 @@ public class Instituteur {
     private SimpleIntegerProperty codeP;
     private SimpleIntegerProperty tel1;
     private SimpleIntegerProperty tel2;
-    
-     private BooleanProperty cocher = new SimpleBooleanProperty(false);
-     
+
+    private BooleanProperty cocher = new SimpleBooleanProperty(false);
+
     //constructeurs 
- public Instituteur(){
-     this.id_i =new SimpleIntegerProperty();
-     this.nom=new SimpleStringProperty();
-     this.prenom=new SimpleStringProperty();
-     this.dateNaiss=new SimpleObjectProperty<Date>();
-     this.NCIN=new SimpleIntegerProperty();
-     this.dateEmb=new SimpleObjectProperty<Date>();
-     this.sex=new SimpleStringProperty();
-     this.grade=new SimpleStringProperty();
-     this.adresse=new SimpleStringProperty();
-     this.ville=new SimpleStringProperty();
-     this.email=new SimpleStringProperty();
-     this.codeP= new SimpleIntegerProperty();
-     this.tel1=new SimpleIntegerProperty();
-     this.tel2=new SimpleIntegerProperty();
-     this.immatricul=new SimpleIntegerProperty();
- }
-    
-    public Instituteur(int id_i, String nom, String prenom, Date dateNaiss, int NCIN, Date dateEmb, String sex, int immatricul, String grade, String adresse, String ville, String email, int codeP, int tel1, int tel2)
- {
-     this.id_i =new SimpleIntegerProperty(id_i);
-     this.nom=new SimpleStringProperty(nom);
-     this.prenom=new SimpleStringProperty(prenom);
-     this.dateNaiss=new SimpleObjectProperty<Date>(dateNaiss);
-     this.NCIN=new SimpleIntegerProperty(NCIN);
-     this.dateEmb=new SimpleObjectProperty<Date>(dateEmb);
-     this.sex=new SimpleStringProperty(sex);
-     this.grade=new SimpleStringProperty(grade);
-     this.adresse=new SimpleStringProperty(adresse);
-     this.ville=new SimpleStringProperty(ville);
-     this.email=new SimpleStringProperty(email);
-     this.codeP=new SimpleIntegerProperty(codeP);
-     this.tel1=new SimpleIntegerProperty(tel1);
-     this.tel2=new SimpleIntegerProperty(tel2);
-     this.immatricul=new SimpleIntegerProperty(immatricul);          
- }
+    public Instituteur() {
+        this.id_i = new SimpleIntegerProperty();
+        this.nom = new SimpleStringProperty();
+        this.prenom = new SimpleStringProperty();
+        this.dateNaiss = new SimpleObjectProperty<Date>();
+        this.NCIN = new SimpleIntegerProperty();
+        this.dateEmb = new SimpleObjectProperty<Date>();
+        this.sex = new SimpleStringProperty();
+        this.grade = new SimpleStringProperty();
+        this.adresse = new SimpleStringProperty();
+        this.ville = new SimpleStringProperty();
+        this.email = new SimpleStringProperty();
+        this.codeP = new SimpleIntegerProperty();
+        this.tel1 = new SimpleIntegerProperty();
+        this.tel2 = new SimpleIntegerProperty();
+        this.immatricul = new SimpleIntegerProperty();
+    }
+
+    public Instituteur(int id_i, String nom, String prenom, Date dateNaiss, int NCIN, Date dateEmb, String sex, int immatricul, String grade, String adresse, String ville, String email, int codeP, int tel1, int tel2) {
+        this.id_i = new SimpleIntegerProperty(id_i);
+        this.nom = new SimpleStringProperty(nom);
+        this.prenom = new SimpleStringProperty(prenom);
+        this.dateNaiss = new SimpleObjectProperty<Date>(dateNaiss);
+        this.NCIN = new SimpleIntegerProperty(NCIN);
+        this.dateEmb = new SimpleObjectProperty<Date>(dateEmb);
+        this.sex = new SimpleStringProperty(sex);
+        this.grade = new SimpleStringProperty(grade);
+        this.adresse = new SimpleStringProperty(adresse);
+        this.ville = new SimpleStringProperty(ville);
+        this.email = new SimpleStringProperty(email);
+        this.codeP = new SimpleIntegerProperty(codeP);
+        this.tel1 = new SimpleIntegerProperty(tel1);
+        this.tel2 = new SimpleIntegerProperty(tel2);
+        this.immatricul = new SimpleIntegerProperty(immatricul);
+    }
 //getters
+
     public int getId_i() {
         return id_i.get();
     }
@@ -187,68 +188,81 @@ public class Instituteur {
     public void setTel2(int tel2) {
         this.tel2.set(tel2);
     }
-    
+
     //Property
-    public SimpleIntegerProperty id_iProperty(){
+    public SimpleIntegerProperty id_iProperty() {
         return id_i;
     }
-    public SimpleStringProperty nomProperty(){
+
+    public SimpleStringProperty nomProperty() {
         return nom;
     }
-    public SimpleStringProperty fullnomProperty(){
-        return new SimpleStringProperty(nom.get()+" "+prenom.get());
+
+    public SimpleStringProperty fullnomProperty() {
+        return new SimpleStringProperty(nom.get() + " " + prenom.get());
     }
-    public SimpleStringProperty prenomProperty(){
+
+    public SimpleStringProperty prenomProperty() {
         return prenom;
     }
-    public SimpleStringProperty adresseProperty(){
+
+    public SimpleStringProperty adresseProperty() {
         return adresse;
     }
-    public SimpleStringProperty villeProperty(){
+
+    public SimpleStringProperty villeProperty() {
         return ville;
     }
-    public SimpleIntegerProperty codePProperty(){
+
+    public SimpleIntegerProperty codePProperty() {
         return codeP;
     }
-    public SimpleObjectProperty<Date> dateNaissProperty(){
+
+    public SimpleObjectProperty<Date> dateNaissProperty() {
         return dateNaiss;
     }
-    public SimpleStringProperty gradeProperty(){
+
+    public SimpleStringProperty gradeProperty() {
         return grade;
     }
-    public SimpleStringProperty sexProperty(){
+
+    public SimpleStringProperty sexProperty() {
         return sex;
     }
-    public SimpleStringProperty emailProperty(){
+
+    public SimpleStringProperty emailProperty() {
         return email;
     }
-    public SimpleIntegerProperty tel1Property(){
+
+    public SimpleIntegerProperty tel1Property() {
         return tel1;
     }
-    public SimpleIntegerProperty immProperty(){
+
+    public SimpleIntegerProperty immProperty() {
         return immatricul;
     }
-    public SimpleIntegerProperty tel2Property(){
+
+    public SimpleIntegerProperty tel2Property() {
         return tel2;
     }
 
-    public SimpleObjectProperty<Date> dateEmbProperty(){
+    public SimpleObjectProperty<Date> dateEmbProperty() {
         return dateEmb;
     }
-    
+
     //cocher property
-     public BooleanProperty cocherProperty() {
-            return cocher;
-        }
+    public BooleanProperty cocherProperty() {
+        return cocher;
+    }
 
-        public void setCocher(boolean cocher) {
-            this.cocher.set(cocher);
-        }
+    public void setCocher(boolean cocher) {
+        this.cocher.set(cocher);
+    }
 
-        public boolean isCocher() {
-            return cocher.get();
-        }
-        
+    public boolean isCocher() {
+        return cocher.get();
+    }
+
     //methodes utils ...
     @Override
     public int hashCode() {
@@ -315,6 +329,5 @@ public class Instituteur {
         }
         return true;
     }
-
 
 }

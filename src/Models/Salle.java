@@ -13,8 +13,7 @@ public class Salle {
     private SimpleObjectProperty date_creation;
     private SimpleStringProperty nom;
 
-
-    public Salle(int identifiant, String type_salle, int capacite , Date date_creation,String nom) {
+    public Salle(int identifiant, String type_salle, int capacite, Date date_creation, String nom) {
         this.date_creation = new SimpleObjectProperty(date_creation);
         this.identifiant = new SimpleIntegerProperty(identifiant);
         this.type_salle = new SimpleStringProperty(type_salle);
@@ -22,11 +21,10 @@ public class Salle {
         this.nom = new SimpleStringProperty(nom);
     }
 
-
     public Salle() {
         date_creation = new SimpleObjectProperty(new Date());
         identifiant = new SimpleIntegerProperty(0);
-        type_salle  = new SimpleStringProperty("");
+        type_salle = new SimpleStringProperty("");
         capacite = new SimpleIntegerProperty(0);
         nom = new SimpleStringProperty("");
     }

@@ -121,7 +121,8 @@ public class voirEleveController implements Initializable {
         }
     }
 
-    @FXML private void click_imprimer(ActionEvent event) {
+    @FXML
+    private void click_imprimer(ActionEvent event) {
 
         try {
             FileWriter xx = new FileWriter("output.html", false);
@@ -178,7 +179,8 @@ public class voirEleveController implements Initializable {
 
     }
 
-    @FXML private void click_voir(ActionEvent event) {
+    @FXML
+    private void click_voir(ActionEvent event) {
         reinit();
         if (identifiant.getText().isEmpty()) {
             return;
@@ -224,7 +226,8 @@ public class voirEleveController implements Initializable {
 
     }
 
-    @FXML private void click_trouver(ActionEvent event) {
+    @FXML
+    private void click_trouver(ActionEvent event) {
 
     }
 }

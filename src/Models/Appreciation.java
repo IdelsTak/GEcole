@@ -1,7 +1,7 @@
-
 package Models;
 
 public class Appreciation {
+
     private int id_appr;
     private String contenu;
     private int ref_e;
@@ -51,5 +51,4 @@ public class Appreciation {
         this.ref_module = ref_module;
     }
 
-    
 }

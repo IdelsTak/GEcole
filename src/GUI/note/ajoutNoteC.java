@@ -37,58 +37,60 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
 
-
 public class ajoutNoteC implements Initializable {
 
-    @FXML private JFXButton action;
-    @FXML private TableColumn<Note, String> col_nom;
-    @FXML private TableColumn<Note, String> col_note;
-    @FXML private TableView<Note> tableview;
-    
-    
-    
+    @FXML
+    private JFXButton action;
+    @FXML
+    private TableColumn<Note, String> col_nom;
+    @FXML
+    private TableColumn<Note, String> col_note;
+    @FXML
+    private TableView<Note> tableview;
+
     ObservableList<Note> data;
-    
+
     ClasseDAO daoclass = new ClasseDAO();
     MatiereDAO daomat = new MatiereDAO();
     InstituteurDAO daoinst = new InstituteurDAO();
     EleveDAO ElvData = new EleveDAO();
     NoteDAO daonote = new NoteDAO();
-    
-    
-    @FXML private JFXComboBox<String> cmb_classe,cmb_mats,cmb_inst;
+
+    @FXML
+    private JFXComboBox<String> cmb_classe, cmb_mats, cmb_inst;
     ArrayList<Integer> class_ids = new ArrayList();
     ArrayList<Integer> mats_ids = new ArrayList();
     ArrayList<Integer> inst_ids = new ArrayList();
-    
-    
-    private void init_combos(){
-        for (Classe c:daoclass.getAll()){
+
+    private void init_combos() {
+        for (Classe c : daoclass.getAll()) {
             cmb_classe.getItems().add(c.getNom());
             class_ids.add(c.getId_c());
-        }                
-        for (Matiere m:daomat.getAll()){
+        }
+        for (Matiere m : daomat.getAll()) {
             cmb_mats.getItems().add(m.getNom());
             mats_ids.add(m.getId_m());
         }
-       for (Instituteur i:daoinst.getAll()){
+        for (Instituteur i : daoinst.getAll()) {
             cmb_inst.getItems().add(i.getNom());
             inst_ids.add(i.getId_i());
-        }        
-        if (cmb_mats.getItems().size()!=0){
+        }
+        if (cmb_mats.getItems().size() != 0) {
             cmb_mats.getSelectionModel().select(0);
         }
-        if (cmb_classe.getItems().size()!=0)
+        if (cmb_classe.getItems().size() != 0) {
             cmb_classe.getSelectionModel().select(0);
-        if (cmb_inst.getItems().size()!=0)
+        }
+        if (cmb_inst.getItems().size() != 0) {
             cmb_inst.getSelectionModel().select(0);
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         col_note.setEditable(true);
         data = FXCollections.observableArrayList();
-        
+
         col_nom.setCellValueFactory(cellData -> {
             Eleve e = ElvData.find(cellData.getValue().getRef_e());
             if (e == null) {
@@ -98,15 +100,15 @@ public class ajoutNoteC implements Initializable {
             }
         });
 
-        col_note.setCellFactory(TextFieldTableCell.forTableColumn()) ;
-        for (Eleve e:ElvData.getAll()){
+        col_note.setCellFactory(TextFieldTableCell.forTableColumn());
+        for (Eleve e : ElvData.getAll()) {
             AppartientDAO dao = new AppartientDAO();
             Note n = new Note();
             n.setNote(0);
             n.setRef_e(e.getId_e());
             data.add(n);
         }
-        
+
         col_note.setOnEditCommit(
                 new EventHandler<CellEditEvent<Note, String>>() {
             public void handle(CellEditEvent<Note, String> t) {
@@ -115,11 +117,10 @@ public class ajoutNoteC implements Initializable {
             }
         }
         );
-        
-        
+
         tableview.setItems(data);
         init_combos();
-    }    
+    }
 
     @FXML
     private void goto_admin_main(ActionEvent event) {
@@ -158,13 +159,13 @@ public class ajoutNoteC implements Initializable {
     }
 
     @FXML
-    private void ajouterNotes(ActionEvent event) {        
-        for (int i = 0;i<tableview.getItems().size();i++){            
+    private void ajouterNotes(ActionEvent event) {
+        for (int i = 0; i < tableview.getItems().size(); i++) {
             Note no = new Note();
             no.setNote(tableview.getItems().get(i).getNote());
             no.setRef_e(tableview.getItems().get(i).getRef_e());
             no.setRef_inst(inst_ids.get(cmb_inst.getSelectionModel().getSelectedIndex()));
-            no.setRef_mat(mats_ids.get(cmb_mats.getSelectionModel().getSelectedIndex()));            
+            no.setRef_mat(mats_ids.get(cmb_mats.getSelectionModel().getSelectedIndex()));
             //System.out.println(tableview.getItems().get(i).getId_note()+" - " + tableview.getItems().get(i).getNote() + cmb_mats.getSelectionModel().getSelectedItem());
             System.out.println(daonote.create(no));
         }

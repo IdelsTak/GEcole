@@ -1,5 +1,5 @@
-
 package DAO;
+
 import Models.Instituteur;
 import ODB.OracleDBSingleton;
 import java.sql.Connection;
@@ -9,30 +9,30 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class InstituteurDAO implements DAO<Instituteur>  {
-     private String            nomTable    = "INST"    ;
-    private String            nomSequence = "SEQ_ID_E" ;
-    private String            requete     = ""         ;
-    private Connection        session     = null       ;
-    private PreparedStatement statement   = null       ;
-    private ResultSet         resultat    = null       ;
-    private boolean           valide      = false      ;
-    private int               seq         =-1          ;
+public class InstituteurDAO implements DAO<Instituteur> {
 
-    public InstituteurDAO(){
-              session = OracleDBSingleton.getSession();
+    private String nomTable = "INST";
+    private String nomSequence = "SEQ_ID_E";
+    private String requete = "";
+    private Connection session = null;
+    private PreparedStatement statement = null;
+    private ResultSet resultat = null;
+    private boolean valide = false;
+    private int seq = -1;
+
+    public InstituteurDAO() {
+        session = OracleDBSingleton.getSession();
     }
 
-@Override
+    @Override
     public ObservableList<Instituteur> getAll() {
         ArrayList<Instituteur> liste = new ArrayList<Instituteur>();
         try {
-            requete = "SELECT * FROM " + nomTable ;
+            requete = "SELECT * FROM " + nomTable;
             statement = session.prepareStatement(requete);
             resultat = statement.executeQuery();
             while (resultat.next()) {
                 Instituteur instituteur = new Instituteur();
-
 
                 instituteur.setId_i(resultat.getInt("ID_INST"));
                 instituteur.setNom(resultat.getString("NOM"));
@@ -49,24 +49,26 @@ public class InstituteurDAO implements DAO<Instituteur>  {
                 instituteur.setEmail(resultat.getString("EMAIL"));
                 instituteur.setTel1(resultat.getInt("TEL"));
                 instituteur.setTel2(resultat.getInt("TEL2"));
-            liste.add(instituteur);
+                liste.add(instituteur);
             }
-        }catch(Exception exception){
+        } catch (Exception exception) {
             System.out.println("Classe : InstituteurDAO.java\n"
                     + "Methode : getAll()\n"
                     + "Exception : " + exception);
         }
         ObservableList<Instituteur> list = FXCollections.observableArrayList(liste);
-    return list;
+        return list;
     }
-       @Override
+
+    @Override
     public boolean delAll() {
         valide = false;
         try {
             requete = "DELETE FROM " + nomTable;
             statement = session.prepareStatement(requete);
-           if ( statement.executeUpdate()!=0)
+            if (statement.executeUpdate() != 0) {
                 valide = true;
+            }
         } catch (Exception exception) {
             System.out.println("Classe : InstituteurDAO.java\n"
                     + "Methode : delAll()\n"
@@ -75,31 +77,29 @@ public class InstituteurDAO implements DAO<Instituteur>  {
         return valide;
     }
 
-
     public int create(Instituteur instance) {
-    valide = false;
+        valide = false;
         try {
             requete = "INSERT INTO " + nomTable + " (ID_INST , NOM , PRENOM , DATE_NAISS ,NCIN, DATE_EMB , SEX , IMMATRICULE , GRADE , ADRESSE ,VILLE , CODEP , TEL, TEL2, EMAIL  )  "
-                      + "  VALUES ( " + seq_id_next() + " , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )";
+                    + "  VALUES ( " + seq_id_next() + " , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )";
             statement = session.prepareStatement(requete);
             statement.setString(1, instance.getNom());
             statement.setString(2, instance.getPrenom());
-            statement.setDate(3,new java.sql.Date(instance.getDateNaiss().getTime()));
+            statement.setDate(3, new java.sql.Date(instance.getDateNaiss().getTime()));
             statement.setInt(4, instance.getNCIN());
-            statement.setDate(5,new java.sql.Date(instance.getDateEmb().getTime()));
-            statement.setString(6,String.valueOf(instance.getSex()));
-            statement.setInt(7,instance.getImmatricul());
+            statement.setDate(5, new java.sql.Date(instance.getDateEmb().getTime()));
+            statement.setString(6, String.valueOf(instance.getSex()));
+            statement.setInt(7, instance.getImmatricul());
             statement.setString(8, instance.getGrade());
             statement.setString(9, instance.getAdresse());
             statement.setString(10, instance.getVille());
             statement.setInt(11, instance.getCodeP());
-            statement.setInt(12,instance.getTel1());
-            statement.setInt(13,instance.getTel2());
+            statement.setInt(12, instance.getTel1());
+            statement.setInt(13, instance.getTel2());
             statement.setString(14, instance.getEmail());
 
-
             if (statement.executeUpdate() != 0) {
-                seq=seq_id_curr();
+                seq = seq_id_curr();
             }
         } catch (Exception exception) {
             System.out.println("Classe : InstituteurDAO.java\n"
@@ -108,9 +108,10 @@ public class InstituteurDAO implements DAO<Instituteur>  {
         }
         return seq;
     }
-  @Override
+
+    @Override
     public Instituteur find(int id) {
-      Instituteur instituteur = null;
+        Instituteur instituteur = null;
         try {
             requete = "SELECT * FROM INST WHERE  ID_INST = ? ";
             statement = session.prepareStatement(requete);
@@ -146,7 +147,7 @@ public class InstituteurDAO implements DAO<Instituteur>  {
     }
 
     public boolean update(Instituteur instance) {
-    valide = false;
+        valide = false;
         try {
             requete = "UPDATE " + nomTable + " SET   "
                     + "NOM           =  ?  ,"
@@ -168,21 +169,21 @@ public class InstituteurDAO implements DAO<Instituteur>  {
 
             statement.setString(1, instance.getNom());
             statement.setString(2, instance.getPrenom());
-            statement.setDate(3,new java.sql.Date(instance.getDateNaiss().getTime()));
+            statement.setDate(3, new java.sql.Date(instance.getDateNaiss().getTime()));
             statement.setInt(4, instance.getNCIN());
-            statement.setDate(5,new java.sql.Date(instance.getDateEmb().getTime()));
-            statement.setString(6,String.valueOf(instance.getSex()));
-            statement.setInt(7,instance.getImmatricul());
+            statement.setDate(5, new java.sql.Date(instance.getDateEmb().getTime()));
+            statement.setString(6, String.valueOf(instance.getSex()));
+            statement.setInt(7, instance.getImmatricul());
             statement.setString(8, instance.getGrade());
             statement.setString(9, instance.getAdresse());
             statement.setString(10, instance.getVille());
             statement.setInt(11, instance.getCodeP());
-            statement.setInt(12,instance.getTel1());
-            statement.setInt(13,instance.getTel2());
+            statement.setInt(12, instance.getTel1());
+            statement.setInt(13, instance.getTel2());
             statement.setString(14, instance.getEmail());
             statement.setInt(15, instance.getId_i());
 
-            if(statement.executeUpdate()!=0){
+            if (statement.executeUpdate() != 0) {
                 valide = true;
             }
         } catch (Exception exception) {
@@ -193,10 +194,6 @@ public class InstituteurDAO implements DAO<Instituteur>  {
         return valide;
     }
 
-
-
-
-
     @Override
     public boolean delete(int id) {
         valide = false;
@@ -204,7 +201,7 @@ public class InstituteurDAO implements DAO<Instituteur>  {
             requete = "DELETE FROM " + nomTable + " WHERE ( ID_INST = ? )";
             statement = session.prepareStatement(requete);
             statement.setInt(1, id);
-            if (statement.executeUpdate() != 0){
+            if (statement.executeUpdate() != 0) {
                 valide = true;
             }
         } catch (Exception exception) {
@@ -215,13 +212,13 @@ public class InstituteurDAO implements DAO<Instituteur>  {
         return valide;
     }
 
-    private int seq_id_next(){
+    private int seq_id_next() {
         try {
-            requete = "SELECT " +nomSequence+ ".nextval FROM DUAL";
+            requete = "SELECT " + nomSequence + ".nextval FROM DUAL";
             statement = session.prepareStatement(requete);
             resultat = statement.executeQuery();
             while (resultat.next()) {
-                seq=resultat.getInt("NEXTVAL");
+                seq = resultat.getInt("NEXTVAL");
             }
 
         } catch (Exception exception) {
@@ -229,17 +226,17 @@ public class InstituteurDAO implements DAO<Instituteur>  {
                     + "Methode : seq_id_next\n"
                     + "Exception : " + exception);
         }
-        System.out.println("sequence nextval "+seq);
+        System.out.println("sequence nextval " + seq);
         return seq;
     }
 
-    public int seq_id_curr(){
-    try {
-            requete = "SELECT " +nomSequence+ ".currval FROM DUAL";
+    public int seq_id_curr() {
+        try {
+            requete = "SELECT " + nomSequence + ".currval FROM DUAL";
             statement = session.prepareStatement(requete);
             resultat = statement.executeQuery();
             while (resultat.next()) {
-                seq=resultat.getInt("CURRVAL");
+                seq = resultat.getInt("CURRVAL");
             }
 
         } catch (Exception exception) {
@@ -248,7 +245,7 @@ public class InstituteurDAO implements DAO<Instituteur>  {
                     + "Exception : " + exception);
         }
 
-        System.out.println("sequence curr  "+seq);
+        System.out.println("sequence curr  " + seq);
         return seq;
     }
 

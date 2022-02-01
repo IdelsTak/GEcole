@@ -71,7 +71,7 @@ public class assignerClasseController implements Initializable {
     private ArrayList<Integer> ids = new ArrayList<Integer>();
 
     public assignerClasseController() {
-        this.eleves =  FXCollections.observableArrayList();
+        this.eleves = FXCollections.observableArrayList();
     }
 
     @FXML
@@ -93,7 +93,7 @@ public class assignerClasseController implements Initializable {
         });
         dateCol.setCellValueFactory(cellData -> {
             Date d = cellData.getValue().getDateNaiss();
-          return new SimpleStringProperty(String.valueOf(d).substring(0,String.valueOf(d).indexOf(" ")));  
+            return new SimpleStringProperty(String.valueOf(d).substring(0, String.valueOf(d).indexOf(" ")));
         });
         adresseCol.setCellValueFactory(cellData -> cellData.getValue().adresseProperty());
         cochCol.setCellFactory(callback_fn_select_classe);
@@ -104,7 +104,7 @@ public class assignerClasseController implements Initializable {
         initCol();
         tableView.getSelectionModel().setCellSelectionEnabled(false);
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-       maj_info_text();
+        maj_info_text();
     }
 
     private void maj_info_text() {
@@ -125,7 +125,7 @@ public class assignerClasseController implements Initializable {
             ClasseDAO classdao = new ClasseDAO();
             Classe c = classdao.find(id_classe);
             if (c != null) {
-                txt_classe.setText(id_classe+"  "+c.getNom());
+                txt_classe.setText(id_classe + "  " + c.getNom());
                 txt_capacite.setText(String.valueOf(c.getCapacite()));
                 txt_nb_eleve.setText(String.valueOf(c.getNbE()));
                 txt_dispo.setFill(Color.GREEN);
@@ -142,7 +142,7 @@ public class assignerClasseController implements Initializable {
 
     @FXML
     private void click_retour(ActionEvent event) {
-         try {
+        try {
             URL loader = getClass().getResource("../mainwindow.fxml");
             AnchorPane middle = FXMLLoader.load(loader);
 
@@ -155,7 +155,7 @@ public class assignerClasseController implements Initializable {
 
     @FXML
     private void click_trouver(ActionEvent event) {
-         try {
+        try {
             URL loader = getClass().getResource("gestionClasse.fxml");
             AnchorPane middle = FXMLLoader.load(loader);
 
@@ -165,10 +165,10 @@ public class assignerClasseController implements Initializable {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-     @FXML
+
+    @FXML
     private void click_ajouter(ActionEvent event) {
-         try {
+        try {
             URL loader = getClass().getResource("ajoutClasse.fxml");
             AnchorPane middle = FXMLLoader.load(loader);
 
@@ -182,16 +182,17 @@ public class assignerClasseController implements Initializable {
     @FXML
     private void click_assigner(ActionEvent event) {
         AppartientDAO appdao = new AppartientDAO();
-        for (int i = 0 ; i < ids.size() ; i++){
+        for (int i = 0; i < ids.size(); i++) {
             Eleve e = tableView.getItems().get(ids.get(i));
-            if (e!=null)
+            if (e != null) {
                 appdao.assigner(id_classe, e.getId_e());
+            }
         };
         ClasseDAO classedao = new ClasseDAO();
         classedao.mettre_a_jour_nb_eleves(id_classe);
         maj_info_text();
     }
-    
+
     Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>> callback_fn_select_classe = new Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>>() {
         @Override
         public TableCell call(final TableColumn param) {
@@ -211,19 +212,19 @@ public class assignerClasseController implements Initializable {
                                 if (check_box.isSelected()) {
                                     int nbE = Integer.parseInt(txt_dispo.getText());
                                     nbE--;
-                                    if (nbE<0) {
-                                        nbE=0;
+                                    if (nbE < 0) {
+                                        nbE = 0;
                                         check_box.setSelected(false);
                                     } else {
                                         ids.add(getIndex());
-                                    param.getTableView().getSelectionModel().select(getIndex());
-                                    update_selection();
+                                        param.getTableView().getSelectionModel().select(getIndex());
+                                        update_selection();
                                     }
-                                    txt_dispo.setText(nbE+"");
+                                    txt_dispo.setText(nbE + "");
                                 } else {
                                     int nbE = Integer.parseInt(txt_dispo.getText());
                                     nbE++;
-                                    txt_dispo.setText(nbE+"");
+                                    txt_dispo.setText(nbE + "");
                                     ids.remove(ids.indexOf(getIndex()));
                                 }
                                 param.getTableView().getSelectionModel().clearSelection(getIndex());

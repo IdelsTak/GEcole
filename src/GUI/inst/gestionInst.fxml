@@ -23,10 +23,10 @@
 
 <AnchorPane id="AnchorPane" prefHeight="584.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.inst.gestionInstController">
     <stylesheets>
-       <URL value="@../css/dress.css" />
-       <URL value="@../css/mainStage.css" />
-       <URL value="@../css/mainwindow.css" />
-       <URL value="@../css/menusdef.css" />
+        <URL value="@../css/dress.css" />
+        <URL value="@../css/mainStage.css" />
+        <URL value="@../css/mainwindow.css" />
+        <URL value="@../css/menusdef.css" />
     </stylesheets>
     <children>
         <BorderPane prefHeight="584.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -45,21 +45,23 @@
                         </JFXButton>
                         <Separator prefHeight="29.0" prefWidth="200.0" />
                         <JFXButton onAction="#chercher_instituteur" prefHeight="70.0" prefWidth="200.0" styleClass="optionbtn" text="Chercher">
-                     <graphic>
-                        <ImageView fitHeight="33.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../image/search.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></JFXButton>
+                            <graphic>
+                                <ImageView fitHeight="33.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../image/search.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </JFXButton>
                         <JFXButton onAction="#supprimer_instituteur" prefHeight="70.0" prefWidth="212.0" styleClass="optionbtn" text="Supprimer">
-                     <graphic>
-                        <ImageView fitHeight="34.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../image/minusR.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></JFXButton>
+                            <graphic>
+                                <ImageView fitHeight="34.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../image/minusR.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </JFXButton>
                         <JFXButton onAction="#supprimer_instituteurs" prefHeight="70.0" prefWidth="212.0" styleClass="optionbtn" text="Supprimer tout" />
                     </children>
                 </VBox>
@@ -68,17 +70,17 @@
                 <HBox prefHeight="66.0" prefWidth="1200.0" styleClass="upperbox" BorderPane.alignment="CENTER">
                     <children>
                         <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#goto_admin_main" prefHeight="71.0" prefWidth="62.0" styleClass="backbtn" stylesheets="@../css/menusdef.css">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                     <graphic>
-                        <ImageView fitHeight="55.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../image/back.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
+                            <HBox.margin>
+                                <Insets left="20.0" />
+                            </HBox.margin>
+                            <graphic>
+                                <ImageView fitHeight="55.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../image/back.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </JFXButton>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="74.0" prefWidth="217.0" text="Gestion des Instituteurs">
                             <font>
                                 <Font name="System Bold" size="18.0" />

@@ -28,7 +28,7 @@ public class MainwindowinstController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     @FXML
     private void goto_list_classes(ActionEvent event) {
@@ -45,5 +45,5 @@ public class MainwindowinstController implements Initializable {
     @FXML
     private void goto_list_reunion(ActionEvent event) {
     }
-    
+
 }

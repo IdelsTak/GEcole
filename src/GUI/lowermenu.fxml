@@ -8,28 +8,29 @@
 <?import javafx.scene.text.Font?>
 
 <HBox fx:id="box" nodeOrientation="LEFT_TO_RIGHT" prefHeight="33.0" prefWidth="1200.0" styleClass="setup-hboxbottom" stylesheets="@CSS/mainwindow.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LowermenuController">
-   <children>
-      <Label alignment="CENTER_RIGHT" contentDisplay="TOP" prefHeight="31.0" prefWidth="1132.0" text=" WhiteHood @ 2016-2017    " textFill="#0055ff">
-         <font>
-            <Font name="Arial Italic" size="10.0" />
-         </font>
-      </Label>
-      <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#goto_login" prefHeight="62.0" prefWidth="42.0" styleClass="buttonD">
-          <graphic>
-            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-               <image>
-                  <Image url="@image/home.png" />
-               </image>
-            </ImageView>
-          </graphic>
-      </JFXButton>
-      <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#goto_config" prefHeight="64.0" prefWidth="42.0" styleClass="buttonD">
-         <graphic>
-            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-               <image>
-                  <Image url="@image/settings.png" />
-               </image>
-            </ImageView>
-         </graphic></JFXButton>
-   </children>
+    <children>
+        <Label alignment="CENTER_RIGHT" contentDisplay="TOP" prefHeight="31.0" prefWidth="1132.0" text=" WhiteHood @ 2016-2017    " textFill="#0055ff">
+            <font>
+                <Font name="Arial Italic" size="10.0" />
+            </font>
+        </Label>
+        <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#goto_login" prefHeight="62.0" prefWidth="42.0" styleClass="buttonD">
+            <graphic>
+                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                    <image>
+                        <Image url="@image/home.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </JFXButton>
+        <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#goto_config" prefHeight="64.0" prefWidth="42.0" styleClass="buttonD">
+            <graphic>
+                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                    <image>
+                        <Image url="@image/settings.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </JFXButton>
+    </children>
 </HBox>

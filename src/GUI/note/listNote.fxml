@@ -25,16 +25,16 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="584.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.note.listNoteC">
-        <stylesheets>
-       <URL value="@../css/dress.css" />
-       <URL value="@../css/mainStage.css" />
-       <URL value="@../css/mainwindow.css" />
-       <URL value="@../css/menusdef.css" />
+    <stylesheets>
+        <URL value="@../css/dress.css" />
+        <URL value="@../css/mainStage.css" />
+        <URL value="@../css/mainwindow.css" />
+        <URL value="@../css/menusdef.css" />
     </stylesheets>
-   <children>
-      <BorderPane prefHeight="584.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <left>
-             <VBox prefHeight="584.0" prefWidth="200.0" styleClass="leftbox" BorderPane.alignment="CENTER">
+    <children>
+        <BorderPane prefHeight="584.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <left>
+                <VBox prefHeight="584.0" prefWidth="200.0" styleClass="leftbox" BorderPane.alignment="CENTER">
                     <children>
                         <JFXButton onAction="#listNotes" prefHeight="40.0" prefWidth="212.0" styleClass="mainbtn" text="Voir les Notes">
                             <VBox.margin>
@@ -46,62 +46,64 @@
                                 <Insets bottom="4.0" left="10.0" right="10.0" top="4.0" />
                             </VBox.margin>
                         </JFXButton>
-                  <Separator prefHeight="29.0" prefWidth="200.0" />
-                  <JFXButton fx:id="action" onAction="#imprimerNotes" prefHeight="70.0" prefWidth="200.0" styleClass="optionbtn" text="Imprimer">
-                     <VBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </VBox.margin></JFXButton>
-                  <JFXButton layoutX="21.0" layoutY="146.0" onAction="#action_supprimer_notes" prefHeight="70.0" prefWidth="200.0" styleClass="optionbtn" text="Supprimer Notes de cette classe" />
-               </children></VBox>
-         </left>
-         <top>
-            <HBox prefHeight="66.0" prefWidth="1200.0" styleClass="upperbox" BorderPane.alignment="CENTER">
-               <children>
-                  <JFXButton onAction="#goto_admin_main" prefHeight="71.0" prefWidth="62.0" styleClass="backbtn" text="&lt;-">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </JFXButton>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="74.0" prefWidth="217.0" text="Gestion des Notes">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-         </top>
-         <center>
-         </center>
-         <center>
-            <GridPane BorderPane.alignment="CENTER">
-              <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="946.0" minWidth="10.0" prefWidth="27.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="973.0" minWidth="10.0" prefWidth="973.0" />
-              </columnConstraints>
-              <rowConstraints>
-                  <RowConstraints maxHeight="485.0" minHeight="10.0" prefHeight="92.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="485.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="485.0" minHeight="10.0" prefHeight="381.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="485.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="271.0" minHeight="8.0" prefHeight="34.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <JFXComboBox fx:id="cmb_classe" onAction="#class_changed" labelFloat="true" prefHeight="25.0" prefWidth="279.0" promptText="Classe" GridPane.columnIndex="1">
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                     <padding>
-                        <Insets left="30.0" />
-                     </padding>
-                  </JFXComboBox>
-                  <TableView fx:id="tableview" editable="true" maxWidth="-Infinity" pickOnBounds="false" prefHeight="371.0" prefWidth="899.0" scaleShape="false" GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="2" GridPane.vgrow="NEVER">
-                    <columns>
-                      <TableColumn fx:id="col_nom" prefWidth="197.0" text="Nom et Prenom Eleve" />
-                    </columns>
-                  </TableView>
-               </children>
-            </GridPane>
-         </center>
-      </BorderPane>
-   </children>
+                        <Separator prefHeight="29.0" prefWidth="200.0" />
+                        <JFXButton fx:id="action" onAction="#imprimerNotes" prefHeight="70.0" prefWidth="200.0" styleClass="optionbtn" text="Imprimer">
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </VBox.margin>
+                        </JFXButton>
+                        <JFXButton layoutX="21.0" layoutY="146.0" onAction="#action_supprimer_notes" prefHeight="70.0" prefWidth="200.0" styleClass="optionbtn" text="Supprimer Notes de cette classe" />
+                    </children>
+                </VBox>
+            </left>
+            <top>
+                <HBox prefHeight="66.0" prefWidth="1200.0" styleClass="upperbox" BorderPane.alignment="CENTER">
+                    <children>
+                        <JFXButton onAction="#goto_admin_main" prefHeight="71.0" prefWidth="62.0" styleClass="backbtn" text="&lt;-">
+                            <HBox.margin>
+                                <Insets left="20.0" />
+                            </HBox.margin>
+                        </JFXButton>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="74.0" prefWidth="217.0" text="Gestion des Notes">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+            </top>
+            <center>
+            </center>
+            <center>
+                <GridPane BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="946.0" minWidth="10.0" prefWidth="27.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="973.0" minWidth="10.0" prefWidth="973.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="485.0" minHeight="10.0" prefHeight="92.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="485.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="485.0" minHeight="10.0" prefHeight="381.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="485.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="271.0" minHeight="8.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <JFXComboBox fx:id="cmb_classe" onAction="#class_changed" labelFloat="true" prefHeight="25.0" prefWidth="279.0" promptText="Classe" GridPane.columnIndex="1">
+                            <GridPane.margin>
+                                <Insets />
+                            </GridPane.margin>
+                            <padding>
+                                <Insets left="30.0" />
+                            </padding>
+                        </JFXComboBox>
+                        <TableView fx:id="tableview" editable="true" maxWidth="-Infinity" pickOnBounds="false" prefHeight="371.0" prefWidth="899.0" scaleShape="false" GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="2" GridPane.vgrow="NEVER">
+                            <columns>
+                                <TableColumn fx:id="col_nom" prefWidth="197.0" text="Nom et Prenom Eleve" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </GridPane>
+            </center>
+        </BorderPane>
+    </children>
 </AnchorPane>

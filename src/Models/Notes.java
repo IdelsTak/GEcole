@@ -2,7 +2,8 @@ package Models;
 
 import java.util.ArrayList;
 
-public class Notes {    
+public class Notes {
+
     private Eleve eleve;
     private ArrayList<Note> notes;
     private ArrayList<Matiere> matieres;
@@ -18,20 +19,23 @@ public class Notes {
     public ArrayList<Note> getNotes() {
         return notes;
     }
-    public int getIndexNote(Note note){
+
+    public int getIndexNote(Note note) {
         return this.notes.indexOf(note);
     }
-    
-    public int getIndexMatiere(Matiere matiere){
+
+    public int getIndexMatiere(Matiere matiere) {
         return this.matieres.indexOf(matiere);
     }
-    public void rmNote(Note note){
+
+    public void rmNote(Note note) {
         this.notes.remove(note);
     }
 
-    public void rmMatiere(Matiere matiere){
+    public void rmMatiere(Matiere matiere) {
         this.matieres.remove(matiere);
     }
+
     public void addNote(Note note) {
         this.notes.add(note);
     }
@@ -44,11 +48,8 @@ public class Notes {
         this.matieres.add(matiere);
     }
 
+    public float moyenne() {
+        return -1f;
+    }
 
-
-   public float moyenne(){
-       return -1f;
-   }
-    
-    
 }

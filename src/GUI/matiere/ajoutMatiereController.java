@@ -33,20 +33,25 @@ import main_pack.Main_class;
 
 public class ajoutMatiereController implements Initializable {
 
-    @FXML private JFXButton action;
-    @FXML private JFXTextField coef,nom;
-    @FXML private JFXTextArea desc;
-    @FXML private Label lnom,lcoef;
-    @FXML private JFXComboBox<String> module;
-    
+    @FXML
+    private JFXButton action;
+    @FXML
+    private JFXTextField coef, nom;
+    @FXML
+    private JFXTextArea desc;
+    @FXML
+    private Label lnom, lcoef;
+    @FXML
+    private JFXComboBox<String> module;
+
     ArrayList<Integer> ids_mods = new ArrayList<Integer>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         init();
-       init_mods();
-       module.getSelectionModel().select(0);
-    }    
+        init_mods();
+        module.getSelectionModel().select(0);
+    }
 
     @FXML
     private void goto_admin_main(ActionEvent event) {
@@ -84,7 +89,8 @@ public class ajoutMatiereController implements Initializable {
         }
     }
 
-    @FXML private void listMat(ActionEvent event) {
+    @FXML
+    private void listMat(ActionEvent event) {
         try {
             URL loader = getClass().getResource("listMatiere.fxml");
             AnchorPane middle = FXMLLoader.load(loader);
@@ -95,7 +101,8 @@ public class ajoutMatiereController implements Initializable {
         }
     }
 
-    @FXML private void ajoutMat(ActionEvent event) {
+    @FXML
+    private void ajoutMat(ActionEvent event) {
         try {
             URL loader = getClass().getResource("ajoutMatiere.fxml");
             AnchorPane middle = FXMLLoader.load(loader);
@@ -106,19 +113,21 @@ public class ajoutMatiereController implements Initializable {
         }
     }
 
-    @FXML private void ajouter_matiere(ActionEvent event) {
+    @FXML
+    private void ajouter_matiere(ActionEvent event) {
         Matiere mat = new Matiere();
         mat.setNom(nom.getText());
         mat.setCoef(Float.parseFloat(coef.getText()));
         mat.setDesc(desc.getText());
         mat.setRef_module(ids_mods.get(module.getSelectionModel().getSelectedIndex()));
         MatiereDAO matdao = new MatiereDAO();
-       int id_mat = matdao.create(mat);
-       if (id_mat!=-1){
-        System.out.println("Identifiant matiere = " + id_mat);
-           listMat(event);
-       }else
+        int id_mat = matdao.create(mat);
+        if (id_mat != -1) {
+            System.out.println("Identifiant matiere = " + id_mat);
+            listMat(event);
+        } else {
             System.out.println("Erreur Lors de l'ajout matiere");
+        }
     }
 
     @FXML
@@ -142,6 +151,7 @@ public class ajoutMatiereController implements Initializable {
             coef.setText(mat.getCoef() + "");
         }
     }
+
     private void update_matiere(int x) {
         MatiereDAO dao = new MatiereDAO();
         Matiere mat = new Matiere();
@@ -153,6 +163,7 @@ public class ajoutMatiereController implements Initializable {
 
         }
     }
+
     private void init() {
         lcoef.setVisible(false);
         lcoef.setText("");

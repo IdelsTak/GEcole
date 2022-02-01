@@ -10,8 +10,7 @@ import javafx.beans.property.SimpleStringProperty;
 //type des donnes doit correspondre a la table eleve
 public class Eleve {
 
-     // Attributs
-
+    // Attributs
     private SimpleIntegerProperty id_e;
     private SimpleStringProperty nom;
     private SimpleStringProperty prenom;
@@ -27,9 +26,8 @@ public class Eleve {
 
     private BooleanProperty cocher = new SimpleBooleanProperty(false);
 
-
 // constructeurs;
-        public Eleve() {
+    public Eleve() {
         this.id_e = new SimpleIntegerProperty();
         this.nom = new SimpleStringProperty();
         this.prenom = new SimpleStringProperty();
@@ -43,9 +41,7 @@ public class Eleve {
         this.ref_p = new SimpleIntegerProperty();
         this.dateIns = new SimpleObjectProperty<Date>();
 
-
     }
-
 
     public Eleve(int id_e, String nom, String prenom, String adresse, String ville, int codeP, Date dateNaiss, String lieuNaiss, String sex, String email, int ref_p, Date dateIns) {
         this.id_e = new SimpleIntegerProperty(id_e);
@@ -64,12 +60,9 @@ public class Eleve {
     }
 
     // getters
-
     public int getId_e() {
         return id_e.get();
     }
-
-
 
     public String getNom() {
         return nom.get();
@@ -103,7 +96,6 @@ public class Eleve {
         return sex.get();
     }
 
-
     public String getEmail() {
         return email.get();
     }
@@ -116,10 +108,7 @@ public class Eleve {
         return dateIns.get();
     }
 
-
-
     // Setters
-
     public void setId_e(int id_e) {
         this.id_e.set(id_e);
     }
@@ -156,7 +145,6 @@ public class Eleve {
         this.sex.set(sex);
     }
 
-
     public void setEmail(String email) {
         this.email.set(email);
     }
@@ -170,63 +158,72 @@ public class Eleve {
     }
 
     //Property
-    public SimpleIntegerProperty id_eProperty(){
+    public SimpleIntegerProperty id_eProperty() {
         return id_e;
     }
-    public SimpleStringProperty nomProperty(){
+
+    public SimpleStringProperty nomProperty() {
         return nom;
     }
-    public SimpleStringProperty fullnomProperty(){
-        return new SimpleStringProperty(nom.get()+" "+prenom.get());
+
+    public SimpleStringProperty fullnomProperty() {
+        return new SimpleStringProperty(nom.get() + " " + prenom.get());
     }
-    public SimpleStringProperty prenomProperty(){
+
+    public SimpleStringProperty prenomProperty() {
         return prenom;
     }
-    public SimpleStringProperty adresseProperty(){
-        SimpleStringProperty fulladresse= new SimpleStringProperty();
-        fulladresse.set(adresse.get()+", "+ville.get());
+
+    public SimpleStringProperty adresseProperty() {
+        SimpleStringProperty fulladresse = new SimpleStringProperty();
+        fulladresse.set(adresse.get() + ", " + ville.get());
         return fulladresse;
     }
-    public SimpleStringProperty villeProperty(){
+
+    public SimpleStringProperty villeProperty() {
         return ville;
     }
-    public SimpleIntegerProperty codePProperty(){
+
+    public SimpleIntegerProperty codePProperty() {
         return codeP;
     }
-    public SimpleObjectProperty<Date> dateNaissProperty(){
+
+    public SimpleObjectProperty<Date> dateNaissProperty() {
         return dateNaiss;
     }
-    public SimpleStringProperty lieuNaissProperty(){
+
+    public SimpleStringProperty lieuNaissProperty() {
         return lieuNaiss;
     }
-    public SimpleStringProperty sexProperty(){
+
+    public SimpleStringProperty sexProperty() {
         return sex;
     }
-    public SimpleStringProperty emailProperty(){
+
+    public SimpleStringProperty emailProperty() {
         return email;
     }
 
-    public SimpleIntegerProperty ref_pProperty(){
+    public SimpleIntegerProperty ref_pProperty() {
         return ref_p;
     }
-    public SimpleObjectProperty<Date> dateInsProperty(){
+
+    public SimpleObjectProperty<Date> dateInsProperty() {
         return dateIns;
     }
 
     //cocher property
-     public BooleanProperty cocherProperty() {
-            return cocher;
-        }
+    public BooleanProperty cocherProperty() {
+        return cocher;
+    }
 
-        public void setCocher(boolean cocher) {
-            this.cocher.set(cocher);
-        }
+    public void setCocher(boolean cocher) {
+        this.cocher.set(cocher);
+    }
 
-        public boolean isCocher() {
-            return cocher.get();
-        }
-
-
+    public boolean isCocher() {
+        return cocher.get();
+    }
 
     @Override
     public String toString() {

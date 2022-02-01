@@ -38,19 +38,19 @@ public class list_salle implements Initializable {
     @FXML
     private TableView<Salle> table_salle;
     @FXML
-    private TableColumn<Salle,String> colonne_identifiant;
+    private TableColumn<Salle, String> colonne_identifiant;
     @FXML
-    private TableColumn<Salle,String> colonne_nom,colonne_type;
+    private TableColumn<Salle, String> colonne_nom, colonne_type;
     @FXML
-    private TableColumn<Salle,String> colonne_capacite;
+    private TableColumn<Salle, String> colonne_capacite;
     @FXML
-    private TableColumn<Salle,String> colonne_modifier;
+    private TableColumn<Salle, String> colonne_modifier;
     @FXML
-    private TableColumn<Salle,String> colonne_cocher;
+    private TableColumn<Salle, String> colonne_cocher;
     private ObservableList<Salle> data = null;
     private ArrayList<Integer> selected_ids = new ArrayList<Integer>();
     @FXML
-    private TableColumn<Salle,String> colonne_date_creation;
+    private TableColumn<Salle, String> colonne_date_creation;
     @FXML
     private JFXTextField nom;
     @FXML
@@ -65,12 +65,11 @@ public class list_salle implements Initializable {
         data = FXCollections.observableArrayList();
         table_salle.getSelectionModel().setCellSelectionEnabled(false);
         table_salle.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        
-        
+
         colonne_cocher.setCellFactory(callback_fn_select_salle);
         colonne_modifier.setCellFactory(callback_fn_editer_salle);
         colonne_identifiant.setCellValueFactory(cellData -> {
-            return new SimpleStringProperty(""+cellData.getValue().getIdentifiant());
+            return new SimpleStringProperty("" + cellData.getValue().getIdentifiant());
         });
         colonne_nom.setCellValueFactory(cellData -> {
             return new SimpleStringProperty(cellData.getValue().getNom());
@@ -79,16 +78,16 @@ public class list_salle implements Initializable {
             return new SimpleStringProperty(cellData.getValue().getType_salle());
         });
         colonne_capacite.setCellValueFactory(cellData -> {
-            return new SimpleStringProperty(""+cellData.getValue().getCapacite());
+            return new SimpleStringProperty("" + cellData.getValue().getCapacite());
         });
         colonne_date_creation.setCellValueFactory(cellData -> {
             return new SimpleStringProperty(cellData.getValue().getDate_creation().toString());
         });
         refresh();
         init_filters();
-       
+
     }
-Callback<TableColumn<Salle, String>, TableCell<Salle, String>> callback_fn_editer_salle = new Callback<TableColumn<Salle, String>, TableCell<Salle, String>>() {
+    Callback<TableColumn<Salle, String>, TableCell<Salle, String>> callback_fn_editer_salle = new Callback<TableColumn<Salle, String>, TableCell<Salle, String>>() {
         @Override
         public TableCell call(final TableColumn param) {
             final TableCell cell = new TableCell() {
@@ -118,8 +117,9 @@ Callback<TableColumn<Salle, String>, TableCell<Salle, String>> callback_fn_edite
                                         border.setCenter((AnchorPane) root);
                                         if (controller != null) {
                                             controller.edit_salle(item.getIdentifiant());
+                                        } else {
+                                            System.out.println("nul: ");
                                         }
-                                        else System.out.println("nul: ");
                                     } catch (Exception exception) {
                                         System.out.println("erreur i/o: " + exception);
                                     }
@@ -134,6 +134,7 @@ Callback<TableColumn<Salle, String>, TableCell<Salle, String>> callback_fn_edite
             return cell;
         }
     };
+
     @FXML
     private void goto_admin_main(ActionEvent event) {
         Node source = (Node) event.getSource();
@@ -141,12 +142,12 @@ Callback<TableColumn<Salle, String>, TableCell<Salle, String>> callback_fn_edite
         BorderPane border = (BorderPane) scene.getRoot();
         try {
             border.setCenter(FXMLLoader.load(getClass().getResource("../mainwindow.fxml")));
-        }catch (IOException exception) {
+        } catch (IOException exception) {
             System.out.println("erreur i/o: " + exception);
         }
     }
 
-     Callback<TableColumn<Salle, String>, TableCell<Salle, String>> callback_fn_select_salle = new Callback<TableColumn<Salle, String>, TableCell<Salle, String>>() {
+    Callback<TableColumn<Salle, String>, TableCell<Salle, String>> callback_fn_select_salle = new Callback<TableColumn<Salle, String>, TableCell<Salle, String>>() {
         @Override
         public TableCell call(final TableColumn param) {
             final TableCell cell = new TableCell() {
@@ -180,6 +181,7 @@ Callback<TableColumn<Salle, String>, TableCell<Salle, String>> callback_fn_edite
             return cell;
         }
     };
+
     @FXML
     private void goto_ajouter_salle(ActionEvent event) {
         Node source = (Node) event.getSource();
@@ -191,7 +193,8 @@ Callback<TableColumn<Salle, String>, TableCell<Salle, String>> callback_fn_edite
             System.out.println("erreur i/o: " + exception);
         }
     }
-        @FXML
+
+    @FXML
     private void goto_lister_salle(ActionEvent event) {
         Node source = (Node) event.getSource();
         Scene scene = (Scene) source.getScene();
@@ -203,8 +206,7 @@ Callback<TableColumn<Salle, String>, TableCell<Salle, String>> callback_fn_edite
         }
     }
 
-    
-    private void init_filters(){
+    private void init_filters() {
         DAO sdao = new SalleDAO();
         data = sdao.getAll();
         table_salle.setItems(data);
@@ -212,9 +214,9 @@ Callback<TableColumn<Salle, String>, TableCell<Salle, String>> callback_fn_edite
         capacite.setText("");
         dateS.setText("");
         type.setText("");
-        
+
         FilteredList<Salle> filteredData = new FilteredList<>(data, p -> true);
-        
+
         nom.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(salle -> {
                 if (newValue == null || newValue.isEmpty()) {
@@ -223,7 +225,7 @@ Callback<TableColumn<Salle, String>, TableCell<Salle, String>> callback_fn_edite
                 String fullnameFilter = newValue.toLowerCase();
                 if (salle.getNom().toLowerCase().contains(fullnameFilter)) {
                     return true;
-                } 
+                }
                 return false;
             });
         });
@@ -235,7 +237,7 @@ Callback<TableColumn<Salle, String>, TableCell<Salle, String>> callback_fn_edite
                 String fullnameFilter = newValue.toLowerCase();
                 if (salle.getType_salle().toLowerCase().contains(fullnameFilter)) {
                     return true;
-                } 
+                }
                 return false;
             });
         });
@@ -247,11 +249,11 @@ Callback<TableColumn<Salle, String>, TableCell<Salle, String>> callback_fn_edite
                 String fullnameFilter = newValue.toLowerCase();
                 if (String.valueOf(salle.getCapacite()).toLowerCase().contains(fullnameFilter)) {
                     return true;
-                } 
+                }
                 return false;
             });
         });
-         dateS.textProperty().addListener((observable, oldValue, newValue) -> {
+        dateS.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(salle -> {
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
@@ -259,15 +261,14 @@ Callback<TableColumn<Salle, String>, TableCell<Salle, String>> callback_fn_edite
                 String fullnameFilter = newValue.toLowerCase();
                 if (String.valueOf(salle.getDate_creation()).toLowerCase().contains(fullnameFilter)) {
                     return true;
-                } 
+                }
                 return false;
             });
         });
-         SortedList<Salle> sortedData = new SortedList<>(filteredData);
+        SortedList<Salle> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(table_salle.comparatorProperty());
         table_salle.setItems(sortedData);
     }
-    
 
     @FXML
     private void supprimer_salle(ActionEvent event) {
@@ -301,9 +302,9 @@ Callback<TableColumn<Salle, String>, TableCell<Salle, String>> callback_fn_edite
     }
 
     private void refresh() {
-            SalleDAO dao = new SalleDAO();
-            table_salle.getItems().clear();
-            data = dao.getAll();
-            table_salle.setItems(data);
+        SalleDAO dao = new SalleDAO();
+        table_salle.getItems().clear();
+        data = dao.getAll();
+        table_salle.setItems(data);
     }
 }

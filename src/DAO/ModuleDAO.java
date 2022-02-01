@@ -1,5 +1,5 @@
-
 package DAO;
+
 import Models.Module;
 import ODB.OracleDBSingleton;
 import java.sql.Connection;
@@ -13,21 +13,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class ModuleDAO implements DAO<Module> {
-    
-    private String            nomTable    = "MODULE"    ;
-    private String            nomSequence = "SEQ_ID_M" ;
-    private String            requete     = ""         ;
-    private Connection        session     = null       ;
-    private PreparedStatement statement   = null       ;
-    private ResultSet         resultat    = null       ;
-    private boolean           valide      = false      ;
-    private int               seq         =-1          ;
 
-    
-    public ModuleDAO(){
-      session = OracleDBSingleton.getSession();
+    private String nomTable = "MODULE";
+    private String nomSequence = "SEQ_ID_M";
+    private String requete = "";
+    private Connection session = null;
+    private PreparedStatement statement = null;
+    private ResultSet resultat = null;
+    private boolean valide = false;
+    private int seq = -1;
+
+    public ModuleDAO() {
+        session = OracleDBSingleton.getSession();
     }
-    
+
     @Override
     public ObservableList<Module> getAll() {
         ArrayList<Module> liste = new ArrayList<Module>();
@@ -52,12 +51,12 @@ public class ModuleDAO implements DAO<Module> {
 
     }
 
-    public static int nbr_matiere(int id_module){
-        int n = 0 ;
-        String requete = "SELECT COUNT(*) as nbr FROM MATIERE WHERE REF_MODULE = " + id_module ;
+    public static int nbr_matiere(int id_module) {
+        int n = 0;
+        String requete = "SELECT COUNT(*) as nbr FROM MATIERE WHERE REF_MODULE = " + id_module;
         try {
             ResultSet rs = ODB.OracleDBSingleton.getSession().prepareStatement(requete).executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 n = rs.getInt("nbr");
             }
         } catch (SQLException ex) {
@@ -65,12 +64,13 @@ public class ModuleDAO implements DAO<Module> {
         }
         return n;
     }
-    public static double total_coefs(int id_module){
+
+    public static double total_coefs(int id_module) {
         double tot = 0.0f;
-        String requete = "SELECT *  FROM MATIERE WHERE REF_MODULE = " + id_module ;
+        String requete = "SELECT *  FROM MATIERE WHERE REF_MODULE = " + id_module;
         try {
             ResultSet rs = ODB.OracleDBSingleton.getSession().prepareStatement(requete).executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 tot += rs.getDouble("COEF");
             }
         } catch (SQLException ex) {
@@ -78,18 +78,16 @@ public class ModuleDAO implements DAO<Module> {
         }
         return tot;
     }
-    
-    
-    
-    
+
     @Override
     public boolean delAll() {
-       valide = false;
+        valide = false;
         try {
             requete = "DELETE FROM Module";
             statement = session.prepareStatement(requete);
-           if ( statement.executeUpdate()!=0)
+            if (statement.executeUpdate() != 0) {
                 valide = true;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ModuleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -99,36 +97,34 @@ public class ModuleDAO implements DAO<Module> {
     @Override
     public int create(Module instance) {
         try {
-            requete = "INSERT INTO Module (ID_Module , NOM , REF_NIV ) " +
-                             " VALUES ( SEQ_ID_MODULE.NEXTVAL , ? , ?)";
+            requete = "INSERT INTO Module (ID_Module , NOM , REF_NIV ) "
+                    + " VALUES ( SEQ_ID_MODULE.NEXTVAL , ? , ?)";
             statement = session.prepareStatement(requete);
             statement.setString(1, instance.getNom());
             statement.setInt(2, instance.getRef_niv());
             if (statement.executeUpdate() != 0) {
-                    requete = "Select ID_MODULE from MODULE where rowid=(select max(rowid) from MODULE )";
-                    statement = session.prepareStatement(requete);
-                    ResultSet resultat = statement.executeQuery();
-                    while (resultat.next()) {
-                        return resultat.getInt("ID_MODULE");
-                    }
+                requete = "Select ID_MODULE from MODULE where rowid=(select max(rowid) from MODULE )";
+                statement = session.prepareStatement(requete);
+                ResultSet resultat = statement.executeQuery();
+                while (resultat.next()) {
+                    return resultat.getInt("ID_MODULE");
                 }
-                
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(ModuleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return -1;
     }
 
-  
-
     @Override
     public boolean delete(int id) {
-       valide = false;
+        valide = false;
         try {
             requete = "DELETE FROM Module WHERE ( ID_Module= ? )";
             statement = session.prepareStatement(requete);
             statement.setInt(1, id);
-            if (statement.executeUpdate() != 0){
+            if (statement.executeUpdate() != 0) {
                 valide = true;
             }
         } catch (SQLException ex) {
@@ -151,7 +147,7 @@ public class ModuleDAO implements DAO<Module> {
             statement.setInt(2, instance.getRef_niv());
             statement.setInt(3, instance.getId());
 
-            if(statement.executeUpdate()!=0){
+            if (statement.executeUpdate() != 0) {
                 valide = true;
             }
         } catch (SQLException ex) {
@@ -160,7 +156,8 @@ public class ModuleDAO implements DAO<Module> {
         return valide;
     }
 
-    @Override public Module find(int id) {
+    @Override
+    public Module find(int id) {
         Module mat = null;
         try {
             requete = "SELECT * FROM MODULE WHERE ( ID_MODULE = ? )";
@@ -174,7 +171,7 @@ public class ModuleDAO implements DAO<Module> {
                 mat.setNom(resultat.getString("NOM"));
                 mat.setRef_niv(resultat.getInt("REF_NIV"));
             }
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(ModuleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return mat;

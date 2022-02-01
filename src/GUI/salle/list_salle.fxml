@@ -20,11 +20,11 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="584.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.salle.list_salle">
-        <stylesheets>
-       <URL value="@../css/dress.css" />
-       <URL value="@../css/mainStage.css" />
-       <URL value="@../css/mainwindow.css" />
-       <URL value="@../css/menusdef.css" />
+    <stylesheets>
+        <URL value="@../css/dress.css" />
+        <URL value="@../css/mainStage.css" />
+        <URL value="@../css/mainwindow.css" />
+        <URL value="@../css/menusdef.css" />
     </stylesheets>
     <children>
         <BorderPane prefHeight="584.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -43,13 +43,14 @@
                         </JFXButton>
                         <Separator prefHeight="29.0" prefWidth="200.0" />
                         <JFXButton onAction="#supprimer_salle" prefHeight="70.0" prefWidth="212.0" styleClass="optionbtn" text="Supprimer">
-                     <graphic>
-                        <ImageView fitHeight="34.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../image/minusR.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></JFXButton>
+                            <graphic>
+                                <ImageView fitHeight="34.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../image/minusR.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </JFXButton>
                         <JFXButton onAction="#supprimer_salles" prefHeight="70.0" prefWidth="212.0" styleClass="optionbtn" text="Supprimer tout" />
                     </children>
                 </VBox>
@@ -58,17 +59,17 @@
                 <HBox prefHeight="66.0" prefWidth="1200.0" styleClass="upperbox" BorderPane.alignment="CENTER">
                     <children>
                         <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#goto_admin_main" prefHeight="71.0" prefWidth="62.0" styleClass="backbtn" stylesheets="@../css/menusdef.css">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                     <graphic>
-                        <ImageView fitHeight="55.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../image/back.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
+                            <HBox.margin>
+                                <Insets left="20.0" />
+                            </HBox.margin>
+                            <graphic>
+                                <ImageView fitHeight="55.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../image/back.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </JFXButton>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="74.0" prefWidth="217.0" text="Gestion des Salles">
                             <font>
                                 <Font name="System Bold" size="18.0" />
@@ -97,9 +98,9 @@
                                 <TableColumn fx:id="colonne_modifier" editable="false" prefWidth="120.0" sortable="false" text="Modifier" />
                                 <TableColumn fx:id="colonne_cocher" editable="false" prefWidth="61.0" text="Cocher" />
                             </columns>
-                     <GridPane.margin>
-                        <Insets left="100.0" right="100.0" />
-                     </GridPane.margin>
+                            <GridPane.margin>
+                                <Insets left="100.0" right="100.0" />
+                            </GridPane.margin>
                         </TableView>
                         <GridPane>
                             <columnConstraints>
@@ -126,7 +127,7 @@
                                         <Insets left="50.0" right="50.0" />
                                     </GridPane.margin>
                                 </JFXTextField>
-                        <JFXTextField fx:id="capacite" labelFloat="true" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="296.0" promptText="Capacité de la Salle" unFocusColor="#009688" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                <JFXTextField fx:id="capacite" labelFloat="true" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="296.0" promptText="Capacité de la Salle" unFocusColor="#009688" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                             </children>
                         </GridPane>
                     </children>

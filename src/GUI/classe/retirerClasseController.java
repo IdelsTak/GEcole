@@ -71,7 +71,7 @@ public class retirerClasseController implements Initializable {
     private ArrayList<Integer> ids = new ArrayList<Integer>();
 
     public retirerClasseController() {
-        this.eleves =  FXCollections.observableArrayList();
+        this.eleves = FXCollections.observableArrayList();
     }
 
     @FXML
@@ -93,7 +93,7 @@ public class retirerClasseController implements Initializable {
         });
         dateCol.setCellValueFactory(cellData -> {
             Date d = cellData.getValue().getDateNaiss();
-          return new SimpleStringProperty(String.valueOf(d).substring(0,String.valueOf(d).indexOf(" ")));  
+            return new SimpleStringProperty(String.valueOf(d).substring(0, String.valueOf(d).indexOf(" ")));
         });
         adresseCol.setCellValueFactory(cellData -> cellData.getValue().adresseProperty());
         cochCol.setCellFactory(callback_fn_select_eleve);
@@ -104,7 +104,7 @@ public class retirerClasseController implements Initializable {
         initCol();
         tableView.getSelectionModel().setCellSelectionEnabled(false);
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-       maj_info_text();
+        maj_info_text();
     }
 
     private void maj_info_text() {
@@ -133,7 +133,7 @@ public class retirerClasseController implements Initializable {
 
     @FXML
     private void click_retour(ActionEvent event) {
-         try {
+        try {
             URL loader = getClass().getResource("../mainwindow.fxml");
             AnchorPane middle = FXMLLoader.load(loader);
 
@@ -146,7 +146,7 @@ public class retirerClasseController implements Initializable {
 
     @FXML
     private void click_trouver(ActionEvent event) {
-         try {
+        try {
             URL loader = getClass().getResource("gestionClasse.fxml");
             AnchorPane middle = FXMLLoader.load(loader);
 
@@ -156,10 +156,10 @@ public class retirerClasseController implements Initializable {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-     @FXML
+
+    @FXML
     private void click_ajouter(ActionEvent event) {
-         try {
+        try {
             URL loader = getClass().getResource("ajoutClasse.fxml");
             AnchorPane middle = FXMLLoader.load(loader);
 
@@ -173,29 +173,31 @@ public class retirerClasseController implements Initializable {
     @FXML
     private void click_retirer(ActionEvent event) {
         AppartientDAO appdao = new AppartientDAO();
-        for (int i = 0 ; i < ids.size() ; i++){
+        for (int i = 0; i < ids.size(); i++) {
             Eleve e = tableView.getItems().get(ids.get(i));
-            if (e!=null)
+            if (e != null) {
                 appdao.retirer(id_classe, e.getId_e());
+            }
         };
         ClasseDAO classedao = new ClasseDAO();
         classedao.mettre_a_jour_nb_eleves(id_classe);
         maj_info_text();
     }
-    
+
     @FXML
     private void click_retirertout(ActionEvent event) {
         AppartientDAO appdao = new AppartientDAO();
-        for (int i = 0 ; i < eleves.size() ; i++){
+        for (int i = 0; i < eleves.size(); i++) {
             Eleve e = eleves.get(i);
-            if (e!=null)
+            if (e != null) {
                 appdao.retirer(id_classe, e.getId_e());
+            }
         };
         ClasseDAO classedao = new ClasseDAO();
         classedao.mettre_a_jour_nb_eleves(id_classe);
         maj_info_text();
     }
-    
+
     Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>> callback_fn_select_eleve = new Callback<TableColumn<Eleve, String>, TableCell<Eleve, String>>() {
         @Override
         public TableCell call(final TableColumn param) {
@@ -218,11 +220,11 @@ public class retirerClasseController implements Initializable {
                                     update_selection();
                                     int nbE = Integer.parseInt(txt_dispo.getText());
                                     nbE++;
-                                    txt_dispo.setText(nbE+"");
+                                    txt_dispo.setText(nbE + "");
                                 } else {
                                     int nbE = Integer.parseInt(txt_dispo.getText());
                                     nbE--;
-                                    txt_dispo.setText(nbE+"");
+                                    txt_dispo.setText(nbE + "");
                                     ids.remove(ids.indexOf(getIndex()));
                                 }
                                 param.getTableView().getSelectionModel().clearSelection(getIndex());

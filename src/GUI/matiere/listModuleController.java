@@ -57,41 +57,42 @@ public class listModuleController implements Initializable {
     private TableColumn<Module, String> total_coef;
     @FXML
     private TableColumn<Module, String> cocher;
-    
+
     private ObservableList<Module> data = null;
     private ArrayList<Integer> selected_ids = new ArrayList<Integer>();
 
-
     private void refresh() {
-            ModuleDAO dao = new ModuleDAO();
-            tableView.getItems().clear();
-            data =  dao.getAll();
-            tableView.setItems(data);
+        ModuleDAO dao = new ModuleDAO();
+        tableView.getItems().clear();
+        data = dao.getAll();
+        tableView.setItems(data);
     }
-    @Override public void initialize(URL url, ResourceBundle rb) {
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
         data = FXCollections.observableArrayList();
         tableView.getSelectionModel().setCellSelectionEnabled(false);
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         id.setCellValueFactory(cellData -> {
-            return new SimpleStringProperty(""+cellData.getValue().getId());
+            return new SimpleStringProperty("" + cellData.getValue().getId());
         });
         nom.setCellValueFactory(cellData -> {
             return new SimpleStringProperty(cellData.getValue().getNom());
         });
         niveau.setCellValueFactory(cellData -> {
-            return new SimpleStringProperty(""+String.valueOf(cellData.getValue().getRef_niv()).charAt(0));
+            return new SimpleStringProperty("" + String.valueOf(cellData.getValue().getRef_niv()).charAt(0));
         });
         nbr_matieres.setCellValueFactory(cellData -> {
-            return new SimpleStringProperty(""+String.valueOf(ModuleDAO.nbr_matiere(cellData.getValue().getId())));
+            return new SimpleStringProperty("" + String.valueOf(ModuleDAO.nbr_matiere(cellData.getValue().getId())));
         });
         total_coef.setCellValueFactory(cellData -> {
-            return new SimpleStringProperty(""+String.valueOf(ModuleDAO.total_coefs(cellData.getValue().getId())));
+            return new SimpleStringProperty("" + String.valueOf(ModuleDAO.total_coefs(cellData.getValue().getId())));
         });
         cocher.setCellFactory(callback_fn_select_module);
         modCol.setCellFactory(callback_fn_editer_salle);
         refresh();
-    }    
-Callback<TableColumn<Module, String>, TableCell<Module, String>> callback_fn_editer_salle = new Callback<TableColumn<Module, String>, TableCell<Module, String>>() {
+    }
+    Callback<TableColumn<Module, String>, TableCell<Module, String>> callback_fn_editer_salle = new Callback<TableColumn<Module, String>, TableCell<Module, String>>() {
         @Override
         public TableCell call(final TableColumn param) {
             final TableCell cell = new TableCell() {
@@ -121,8 +122,9 @@ Callback<TableColumn<Module, String>, TableCell<Module, String>> callback_fn_edi
                                         border.setCenter((AnchorPane) root);
                                         if (controller != null) {
                                             controller.edit_module(item.getId());
+                                        } else {
+                                            System.out.println("nul: ");
                                         }
-                                        else System.out.println("nul: ");
                                     } catch (Exception exception) {
                                         System.out.println("erreur i/o: " + exception);
                                     }
@@ -137,6 +139,7 @@ Callback<TableColumn<Module, String>, TableCell<Module, String>> callback_fn_edi
             return cell;
         }
     };
+
     @FXML
     private void goto_admin_main(ActionEvent event) {
         try {
@@ -152,7 +155,7 @@ Callback<TableColumn<Module, String>, TableCell<Module, String>> callback_fn_edi
 
     @FXML
     private void listMod(ActionEvent event) {
-         try {
+        try {
             URL loader = getClass().getResource("listModule.fxml");
             AnchorPane middle = FXMLLoader.load(loader);
 
@@ -161,12 +164,12 @@ Callback<TableColumn<Module, String>, TableCell<Module, String>> callback_fn_edi
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     @FXML
     private void ajoutMod(ActionEvent event) {
-         try {
+        try {
             URL loader = getClass().getResource("ajoutModule.fxml");
             AnchorPane middle = FXMLLoader.load(loader);
             BorderPane border = Main_class.getRoot();
@@ -204,18 +207,18 @@ Callback<TableColumn<Module, String>, TableCell<Module, String>> callback_fn_edi
 
     private boolean user_is_sure() {
         Alert conf;
-        conf = new Alert(Alert.AlertType.CONFIRMATION,"",ButtonType.YES, ButtonType.NO);
+        conf = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.YES, ButtonType.NO);
         conf.setTitle("Confirmer suppression de/des Module(s)!");
         conf.setHeaderText("Etes Vous sure de vouloir supprimer ce/ces Module(s) ?");
         conf.setContentText("La suppression d'un module supprimera tous les matieres qui lui sont associer");
         conf.showAndWait();
-        if (conf.getResult() == ButtonType.YES){
+        if (conf.getResult() == ButtonType.YES) {
             return true;
+        } else {
+            return false;
         }
-        else return false;
     }
-    
-    
+
     @FXML
     private void supprimer(ActionEvent event) {
         if (user_is_sure()) {
@@ -246,14 +249,14 @@ Callback<TableColumn<Module, String>, TableCell<Module, String>> callback_fn_edi
             tableView.getSelectionModel().select(selected_ids.get(i));
         }
     }
-        
+
     private void update_selection() {
         tableView.getSelectionModel().clearSelection();
         for (int i = 0; i < selected_ids.size(); i++) {
             tableView.getSelectionModel().select(selected_ids.get(i));
         }
     }
-    
+
     Callback<TableColumn<Module, String>, TableCell<Module, String>> callback_fn_select_module = new Callback<TableColumn<Module, String>, TableCell<Module, String>>() {
         @Override
         public TableCell call(final TableColumn param) {

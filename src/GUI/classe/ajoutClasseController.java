@@ -51,14 +51,14 @@ public class ajoutClasseController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        niveau.getItems().addAll("1","2","3","4","5","6");
+        niveau.getItems().addAll("1", "2", "3", "4", "5", "6");
         niveau.getSelectionModel().select(0);
         // TODO
-    }    
+    }
 
     @FXML
     private void click_retour(ActionEvent event) {
-                Node source = (Node) event.getSource();
+        Node source = (Node) event.getSource();
         Scene scene = (Scene) source.getScene();
         BorderPane border = (BorderPane) scene.getRoot();
         try {
@@ -70,7 +70,7 @@ public class ajoutClasseController implements Initializable {
 
     @FXML
     private void click_trouver(ActionEvent event) {
-                Node source = (Node) event.getSource();
+        Node source = (Node) event.getSource();
         Scene scene = (Scene) source.getScene();
         BorderPane border = (BorderPane) scene.getRoot();
         try {
@@ -80,27 +80,28 @@ public class ajoutClasseController implements Initializable {
         }
     }
 
-    private boolean saisie_valide(){
-        if (nom.getText().isEmpty()){
+    private boolean saisie_valide() {
+        if (nom.getText().isEmpty()) {
             lnom.setText("nom de classe ne doit pas etre vide");
             lnom.setVisible(true);
             return false;
         }
         try {
             int n = Integer.parseInt(capacite.getText());
-            if (n<1 || n > 99){
-            lcapacite.setVisible(true);
-            lcapacite.setText("la capacite d'une classe doit etre dans l'intervalle 1 .. 99");
-            return false;
+            if (n < 1 || n > 99) {
+                lcapacite.setVisible(true);
+                lcapacite.setText("la capacite d'une classe doit etre dans l'intervalle 1 .. 99");
+                return false;
             }
-            
-        }catch(Exception ex){
+
+        } catch (Exception ex) {
             lcapacite.setVisible(true);
             lcapacite.setText("la capacite d'une classe doit etre un nombre");
             return false;
         }
         return true;
     }
+
     @FXML
     private void click_ajouter_classe(ActionEvent event) {
         init_labls();
@@ -118,22 +119,24 @@ public class ajoutClasseController implements Initializable {
             }
         }
     }
+
     private void update_classe(int x) {
-         if (saisie_valide()) {
+        if (saisie_valide()) {
             ClasseDAO dao = new ClasseDAO();
             Classe c = new Classe();
             c.setCapacite(Integer.parseInt(capacite.getText()));
             c.setId_c(x);
             c.setNom(nom.getText());
-            c.setRef_niv(Integer.parseInt(niveau.getSelectionModel().getSelectedItem()+"2017"));
-             if (dao.update(c)) {
-                 click_trouver(new ActionEvent(action, action));
-             }
+            c.setRef_niv(Integer.parseInt(niveau.getSelectionModel().getSelectedItem() + "2017"));
+            if (dao.update(c)) {
+                click_trouver(new ActionEvent(action, action));
+            }
         }
     }
+
     void edit_classe(int id_c) {
         id_classe = id_c;
-        
+
         action.setText("Modifier Classe");
         action.setOnAction((e) -> {
             update_classe(id_c);
@@ -142,17 +145,18 @@ public class ajoutClasseController implements Initializable {
         Classe c = dao.find(id_c);
         if (c != null) {
             nom.setText(c.getNom());
-            capacite.setText(""+c.getCapacite());
+            capacite.setText("" + c.getCapacite());
             char niv = String.valueOf(c.getRef_niv()).charAt(0);
             niveau.getSelectionModel().select(niv);
-    }
+        }
     }
 
-    private void init_labls(){
+    private void init_labls() {
         lnom.setVisible(false);
         lcapacite.setVisible(false);
         lniveau.setVisible(false);
     }
+
     @FXML
     private void click_reinitialiser(ActionEvent event) {
         nom.setText("");
@@ -160,5 +164,5 @@ public class ajoutClasseController implements Initializable {
         niveau.getSelectionModel().select(0);
         init_labls();
     }
-    
+
 }

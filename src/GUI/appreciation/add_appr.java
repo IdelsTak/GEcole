@@ -1,4 +1,3 @@
-
 package GUI.appreciation;
 
 import DAO.AppartientDAO;
@@ -29,34 +28,37 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
-
 public class add_appr implements Initializable {
 
-    @FXML  private JFXButton action;
-    @FXML  private JFXComboBox<String> cmb_classe, cmb_eleve,cmb_inst,cmb_module;
-    @FXML  private JFXTextArea txt_contenu;
+    @FXML
+    private JFXButton action;
+    @FXML
+    private JFXComboBox<String> cmb_classe, cmb_eleve, cmb_inst, cmb_module;
+    @FXML
+    private JFXTextArea txt_contenu;
     private ArrayList<Integer> id_insts = new ArrayList<>();
     private ArrayList<Integer> id_cls = new ArrayList<>();
     private ArrayList<Integer> id_elves = new ArrayList<>();
     private ArrayList<Integer> id_mods = new ArrayList<>();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ObservableList<Instituteur> all_insts = new InstituteurDAO().getAll();
-        for (Instituteur e:all_insts){
+        for (Instituteur e : all_insts) {
             cmb_inst.getItems().add(e.getNom() + " " + e.getPrenom());
             id_insts.add(e.getId_i());
         }
         ObservableList<Classe> all_cls = new ClasseDAO().getAll();
-        for (Classe e:all_cls){
+        for (Classe e : all_cls) {
             cmb_classe.getItems().add(e.getNom());
             id_cls.add(e.getId_c());
-        }                
+        }
         ObservableList<Module> all_mods = new ModuleDAO().getAll();
-        for (Module m:all_mods){
+        for (Module m : all_mods) {
             cmb_module.getItems().add(m.getNom());
             id_mods.add(m.getId());
         }
-    }    
+    }
 
     @FXML
     private void goto_admin_main(ActionEvent event) {
@@ -69,6 +71,7 @@ public class add_appr implements Initializable {
             System.out.println("erreur i/o: " + exception);
         }
     }
+
     @FXML
     private void goto_lister_appr(ActionEvent event) {
         Node source = (Node) event.getSource();
@@ -92,6 +95,7 @@ public class add_appr implements Initializable {
             System.out.println("erreur i/o: " + exception);
         }
     }
+
     @FXML
     private void ajout_appr(ActionEvent event) {
         Appreciation a = new Appreciation();
@@ -99,10 +103,10 @@ public class add_appr implements Initializable {
         a.setRef_e(id_elves.get(cmb_eleve.getSelectionModel().getSelectedIndex()));
         a.setRef_inst(id_insts.get(cmb_inst.getSelectionModel().getSelectedIndex()));
         a.setRef_module(id_mods.get(cmb_module.getSelectionModel().getSelectedIndex()));
-        if (new AppreciationDAO().create(a)!=-1){
+        if (new AppreciationDAO().create(a) != -1) {
             goto_lister_appr(event);
         }
-        
+
     }
 
     @FXML

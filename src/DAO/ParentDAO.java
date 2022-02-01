@@ -10,19 +10,20 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
-public class ParentDAO implements DAO<Parent>{
 
-    private String            nomTable    = "Parent"    ;
-    private String            nomSequence = "SEQ_ID_P" ;
-    private String            requete     = ""         ;
-    private Connection        session     = null       ;
-    private PreparedStatement statement   = null       ;
-    private ResultSet         resultat    = null       ;
-    private boolean           valide      = false      ;
-    private int               seq         =-1          ;
+public class ParentDAO implements DAO<Parent> {
 
-    public ParentDAO(){
-      session = OracleDBSingleton.getSession();
+    private String nomTable = "Parent";
+    private String nomSequence = "SEQ_ID_P";
+    private String requete = "";
+    private Connection session = null;
+    private PreparedStatement statement = null;
+    private ResultSet resultat = null;
+    private boolean valide = false;
+    private int seq = -1;
+
+    public ParentDAO() {
+        session = OracleDBSingleton.getSession();
     }
 
     @Override
@@ -37,10 +38,10 @@ public class ParentDAO implements DAO<Parent>{
 
     @Override
     public int create(Parent instance) {
-            seq=-1;
+        seq = -1;
         try {
             requete = "INSERT INTO " + nomTable + " (ID_PARENT , NOM_PERE , PROF_P , NOM_MERE , PROF_M , TEL_P , EMAIL_P)  "
-                      + "  VALUES ( " + seq_id_next() + " , ? , ? , ? , ? , ? , ?  )";
+                    + "  VALUES ( " + seq_id_next() + " , ? , ? , ? , ? , ? , ?  )";
             statement = session.prepareStatement(requete);
             statement.setString(1, instance.getNOMP());
             statement.setString(2, instance.getPROFP());
@@ -49,14 +50,15 @@ public class ParentDAO implements DAO<Parent>{
             statement.setString(5, instance.getTELP());
             statement.setString(6, instance.getEMAILP());
             if (statement.executeUpdate() != 0) {
-                seq=seq_id_curr();
+                seq = seq_id_curr();
             }
         } catch (SQLException ex) {
             Logger.getLogger(ParentDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return seq;
     }
+
     public int dernier() {
         int id = -1;
         try {
@@ -77,7 +79,7 @@ public class ParentDAO implements DAO<Parent>{
     public Parent find(int id) {
         Parent parent = null;
         try {
-            requete = "SELECT * FROM " + nomTable +" WHERE ( ID_PARENT = ? )";
+            requete = "SELECT * FROM " + nomTable + " WHERE ( ID_PARENT = ? )";
             statement = session.prepareStatement(requete);
             statement.setInt(1, id);
             resultat = statement.executeQuery();
@@ -101,7 +103,7 @@ public class ParentDAO implements DAO<Parent>{
 
     @Override
     public boolean update(Parent instance) {
-    valide = false;
+        valide = false;
         try {
             requete = "UPDATE " + nomTable + " SET   "
                     + "NOM_PERE        =  ?  ,"
@@ -120,7 +122,7 @@ public class ParentDAO implements DAO<Parent>{
             statement.setString(6, instance.getEMAILP());
             statement.setInt(7, instance.getID_PARENT());
 
-            if(statement.executeUpdate()!=0){
+            if (statement.executeUpdate() != 0) {
                 valide = true;
             }
         } catch (SQLException ex) {
@@ -137,7 +139,7 @@ public class ParentDAO implements DAO<Parent>{
             requete = "DELETE FROM " + nomTable + " WHERE ( ID_PARENT = ? )";
             statement = session.prepareStatement(requete);
             statement.setInt(1, id);
-            if (statement.executeUpdate() != 0){
+            if (statement.executeUpdate() != 0) {
                 valide = true;
             }
         } catch (SQLException ex) {
@@ -146,36 +148,36 @@ public class ParentDAO implements DAO<Parent>{
         return valide;
     }
 
-private int seq_id_next(){
+    private int seq_id_next() {
         try {
-            requete = "SELECT " +nomSequence+ ".nextval FROM DUAL";
+            requete = "SELECT " + nomSequence + ".nextval FROM DUAL";
             statement = session.prepareStatement(requete);
             resultat = statement.executeQuery();
             while (resultat.next()) {
-                seq=resultat.getInt("NEXTVAL");
+                seq = resultat.getInt("NEXTVAL");
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(ParentDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("sequence nextval "+seq);
+        System.out.println("sequence nextval " + seq);
         return seq;
     }
-    
-    public int seq_id_curr(){
-    try {
-            requete = "SELECT " +nomSequence+ ".currval FROM DUAL";
+
+    public int seq_id_curr() {
+        try {
+            requete = "SELECT " + nomSequence + ".currval FROM DUAL";
             statement = session.prepareStatement(requete);
             resultat = statement.executeQuery();
             while (resultat.next()) {
-                seq=resultat.getInt("CURRVAL");
+                seq = resultat.getInt("CURRVAL");
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(ParentDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
-        System.out.println("sequence curr  "+seq);
+
+        System.out.println("sequence curr  " + seq);
         return seq;
     }
 

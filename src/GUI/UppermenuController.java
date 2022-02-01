@@ -30,7 +30,7 @@ public class UppermenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     @FXML
     private void click_exit(ActionEvent event) {
@@ -45,13 +45,13 @@ public class UppermenuController implements Initializable {
     @FXML
     private void dragged(MouseEvent event) {
         Main_class.stage.setX(event.getScreenX() - Main_class.xOffset);
-                Main_class.stage.setY(event.getScreenY() - Main_class.yOffset);
+        Main_class.stage.setY(event.getScreenY() - Main_class.yOffset);
     }
 
     @FXML
     private void pressed(MouseEvent event) {
-         Main_class.xOffset = event.getSceneX();
-                Main_class.yOffset = event.getSceneY();
+        Main_class.xOffset = event.getSceneX();
+        Main_class.yOffset = event.getSceneY();
     }
-    
+
 }

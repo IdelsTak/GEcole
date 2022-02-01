@@ -16,18 +16,16 @@ import javafx.collections.ObservableList;
 public class EmploiDAO implements DAO<Emploi> {
 
     private Connection active_session;
-    
+
     public EmploiDAO() {
         active_session = ODB.OracleDBSingleton.getSession();
     }
 
-    
-    
     @Override
     public ObservableList<Emploi> getAll() {
-        String requete = "SELECT * FROM EMPLOI" ;
-         ObservableList<Emploi> liste = FXCollections.observableArrayList();
-         try {
+        String requete = "SELECT * FROM EMPLOI";
+        ObservableList<Emploi> liste = FXCollections.observableArrayList();
+        try {
             PreparedStatement statement = active_session.prepareStatement(requete);
             ResultSet resultat = statement.executeQuery();
             while (resultat.next()) {
@@ -44,29 +42,29 @@ public class EmploiDAO implements DAO<Emploi> {
                     + "Methode : getAll()\n"
                     + "Exception : " + exception);
         }
-         return liste;
+        return liste;
     }
 
     @Override
     public boolean delAll() {
         String requete = "DELETE FROM EMPLOI";
         try {
-            return (ODB.OracleDBSingleton.getSession().prepareStatement(requete).executeUpdate()>0);
+            return (ODB.OracleDBSingleton.getSession().prepareStatement(requete).executeUpdate() > 0);
         } catch (SQLException ex) {
             Logger.getLogger(EmploiDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
-    
+
     public boolean conflict(Emploi instance) {
         ObservableList<Emploi> all = this.getAll();
         for (Emploi i : all) {
             if (i.getId_day() == instance.getId_day()
                     && i.getId_heure() == instance.getId_heure()
-                    && i.getId_salle() == instance.getId_salle() 
+                    && i.getId_salle() == instance.getId_salle()
                     && i.getId_assiste() == instance.getId_assiste()) {
                 System.out.println("Conft salle :" + instance);
-                return true; 
+                return true;
             }
         }
         return false;
@@ -75,7 +73,7 @@ public class EmploiDAO implements DAO<Emploi> {
     @Override
     public int create(Emploi instance) {
         String requete = "INSERT INTO EMPLOI (ID_EMP , REF_AS , REF_S , HEURE , JOUR )"
-                        + "VALUES  (SEQ_ID_EMP.NEXTVAL ,  ?    ,  ?    ,  ?    ,  ?  )";
+                + "VALUES  (SEQ_ID_EMP.NEXTVAL ,  ?    ,  ?    ,  ?    ,  ?  )";
         try {
             PreparedStatement st = ODB.OracleDBSingleton.getSession().prepareStatement(requete);
             st.setInt(1, instance.getId_assiste());
@@ -92,11 +90,9 @@ public class EmploiDAO implements DAO<Emploi> {
                 }
                 return -1;
             }
-        } 
-        catch (SQLIntegrityConstraintViolationException ex){
+        } catch (SQLIntegrityConstraintViolationException ex) {
             return -2;
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(EmploiDAO.class.getName()).log(Level.SEVERE, null, ex);
             return -1; // Integrite
         }
@@ -118,7 +114,7 @@ public class EmploiDAO implements DAO<Emploi> {
         try {
             PreparedStatement st = ODB.OracleDBSingleton.getSession().prepareStatement(requete);
             st.setInt(1, id);
-            return (st.executeUpdate()>0);
+            return (st.executeUpdate() > 0);
         } catch (SQLException ex) {
             Logger.getLogger(EmploiDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -127,13 +123,14 @@ public class EmploiDAO implements DAO<Emploi> {
 
     public Savepoint getSave() {
         try {
-            return  active_session.setSavepoint();
+            return active_session.setSavepoint();
         } catch (SQLException ex) {
             Logger.getLogger(EmploiDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-    public void loadSave(Savepoint save){
+
+    public void loadSave(Savepoint save) {
         try {
             active_session.rollback(save);
         } catch (SQLException ex) {

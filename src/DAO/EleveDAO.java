@@ -16,28 +16,27 @@ import javafx.collections.ObservableList;
 
 public class EleveDAO implements DAO<Eleve> {
 
-    private final String            nomTable    = "ELEVE"    ;
-    private final String            nomSequence = "SEQ_ID_E" ;
-    private String            requete     = ""         ;
-    private Connection        session     = null       ;
-    private PreparedStatement statement   = null       ;
-    private ResultSet         resultat    = null       ;
-    private boolean           valide      = false      ;
-    private int               seq         =-1          ;
+    private final String nomTable = "ELEVE";
+    private final String nomSequence = "SEQ_ID_E";
+    private String requete = "";
+    private Connection session = null;
+    private PreparedStatement statement = null;
+    private ResultSet resultat = null;
+    private boolean valide = false;
+    private int seq = -1;
 
-
-    public EleveDAO(){
-      session = OracleDBSingleton.getSession();
+    public EleveDAO() {
+        session = OracleDBSingleton.getSession();
     }
 
     @Override
     public ObservableList<Eleve> getAll() {
         ArrayList<Eleve> liste = new ArrayList<Eleve>();
         try {
-            requete = "SELECT * FROM " + nomTable ;
+            requete = "SELECT * FROM " + nomTable;
             statement = session.prepareStatement(requete);
             resultat = statement.executeQuery();
-             while (resultat.next()) {
+            while (resultat.next()) {
                 Eleve eleve = new Eleve();
                 eleve.setId_e(resultat.getInt("ID_ELEVE"));
                 eleve.setNom(resultat.getString("NOM"));
@@ -66,8 +65,9 @@ public class EleveDAO implements DAO<Eleve> {
         try {
             requete = "DELETE FROM " + nomTable;
             statement = session.prepareStatement(requete);
-           if ( statement.executeUpdate()!=0)
+            if (statement.executeUpdate() != 0) {
                 valide = true;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(EleveDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -76,10 +76,10 @@ public class EleveDAO implements DAO<Eleve> {
 
     @Override
     public int create(Eleve instance) {
-    seq = -1;
+        seq = -1;
         try {
             requete = "INSERT INTO " + nomTable + " (ID_ELEVE , NOM , PRENOM , ADRESSE , VILLE , CODEP , DATE_NAISS , LIEU_NAISS , SEX , EMAIL , REF_P ,DATE_INS)  "
-                      + "  VALUES ( " + seq_id_next() + " , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , SYSDATE )";
+                    + "  VALUES ( " + seq_id_next() + " , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , SYSDATE )";
             statement = session.prepareStatement(requete);
             statement.setString(1, instance.getNom());
             statement.setString(2, instance.getPrenom());
@@ -88,7 +88,7 @@ public class EleveDAO implements DAO<Eleve> {
             statement.setInt(5, instance.getCodeP());
             statement.setDate(6, new java.sql.Date(instance.getDateNaiss().getTime()));
             statement.setString(7, instance.getLieuNaiss());
-            statement.setString(8,instance.getSex());
+            statement.setString(8, instance.getSex());
             statement.setString(9, instance.getEmail());
             statement.setInt(10, instance.getRef_p());
             if (statement.executeUpdate() != 0) {
@@ -103,9 +103,9 @@ public class EleveDAO implements DAO<Eleve> {
 
     @Override
     public Eleve find(int id) {
-    Eleve eleve = null;
+        Eleve eleve = null;
         try {
-            requete = "SELECT * FROM " + nomTable +" WHERE ( ID_ELEVE = ? )";
+            requete = "SELECT * FROM " + nomTable + " WHERE ( ID_ELEVE = ? )";
             statement = session.prepareStatement(requete);
             statement.setInt(1, id);
             resultat = statement.executeQuery();
@@ -134,7 +134,7 @@ public class EleveDAO implements DAO<Eleve> {
 
     @Override
     public boolean update(Eleve instance) {
-    valide = false;
+        valide = false;
         try {
             requete = "UPDATE " + nomTable + " SET   "
                     + "NOM           =  ?  ,"
@@ -154,14 +154,14 @@ public class EleveDAO implements DAO<Eleve> {
             statement.setString(3, instance.getAdresse());
             statement.setString(4, instance.getVille());
             statement.setInt(5, instance.getCodeP());
-            statement.setDate(6,  new java.sql.Date(instance.getDateNaiss().getTime()));
+            statement.setDate(6, new java.sql.Date(instance.getDateNaiss().getTime()));
             statement.setString(7, instance.getLieuNaiss());
             statement.setString(8, instance.getSex());
             statement.setString(9, instance.getEmail());
             statement.setInt(10, instance.getRef_p());
             statement.setInt(11, instance.getId_e());
 
-            if(statement.executeUpdate()!=0){
+            if (statement.executeUpdate() != 0) {
                 valide = true;
             }
         } catch (SQLException ex) {
@@ -177,7 +177,7 @@ public class EleveDAO implements DAO<Eleve> {
             requete = "DELETE FROM " + nomTable + " WHERE ( ID_ELEVE = ? )";
             statement = session.prepareStatement(requete);
             statement.setInt(1, id);
-            if (statement.executeUpdate() != 0){
+            if (statement.executeUpdate() != 0) {
                 valide = true;
             }
         } catch (SQLException ex) {
@@ -191,10 +191,10 @@ public class EleveDAO implements DAO<Eleve> {
         ArrayList<Eleve> listeid = new ArrayList<Eleve>();
         try {
             requete = "SELECT e.* FROM ELEVE e INNER JOIN ( "
-                            +"SELECT REF_E FROM APPARTIENT WHERE REF_C="+id+ ") app ON e.ID_ELEVE = app.REF_E";
+                    + "SELECT REF_E FROM APPARTIENT WHERE REF_C=" + id + ") app ON e.ID_ELEVE = app.REF_E";
             statement = session.prepareStatement(requete);
             resultat = statement.executeQuery();
-             while (resultat.next()) {
+            while (resultat.next()) {
                 Eleve eleve = new Eleve();
                 eleve.setId_e(resultat.getInt("ID_ELEVE"));
                 eleve.setNom(resultat.getString("NOM"));
@@ -215,49 +215,49 @@ public class EleveDAO implements DAO<Eleve> {
         }
         ObservableList<Eleve> list = FXCollections.observableArrayList(liste);
         return list;
-        
+
     }
 
-    private int seq_id_next(){
+    private int seq_id_next() {
         try {
-            requete = "SELECT " +nomSequence+ ".nextval FROM DUAL";
+            requete = "SELECT " + nomSequence + ".nextval FROM DUAL";
             statement = session.prepareStatement(requete);
             resultat = statement.executeQuery();
             while (resultat.next()) {
-                seq=resultat.getInt("NEXTVAL");
+                seq = resultat.getInt("NEXTVAL");
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(EleveDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("sequence nextval "+seq);
+        System.out.println("sequence nextval " + seq);
         return seq;
     }
 
-    public int seq_id_curr(){
-    try {
-            requete = "SELECT " +nomSequence+ ".currval FROM DUAL";
+    public int seq_id_curr() {
+        try {
+            requete = "SELECT " + nomSequence + ".currval FROM DUAL";
             statement = session.prepareStatement(requete);
             resultat = statement.executeQuery();
             while (resultat.next()) {
-                seq=resultat.getInt("CURRVAL");
+                seq = resultat.getInt("CURRVAL");
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(EleveDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        System.out.println("sequence curr  "+seq);
+        System.out.println("sequence curr  " + seq);
         return seq;
     }
-    
-    public ObservableList<Eleve> getbyRef_c(int id){
+
+    public ObservableList<Eleve> getbyRef_c(int id) {
         ArrayList<Eleve> liste = new ArrayList<Eleve>();
         try {
-            requete = "SELECT * FROM " + nomTable+" WHERE REF_C="+id ;
+            requete = "SELECT * FROM " + nomTable + " WHERE REF_C=" + id;
             statement = session.prepareStatement(requete);
             resultat = statement.executeQuery();
-             while (resultat.next()) {
+            while (resultat.next()) {
                 Eleve eleve = new Eleve();
                 eleve.setId_e(resultat.getInt("ID_ELEVE"));
                 eleve.setNom(resultat.getString("NOM"));
@@ -273,7 +273,7 @@ public class EleveDAO implements DAO<Eleve> {
                 eleve.setDateIns(resultat.getDate("DATE_INS"));
                 liste.add(eleve);
             }
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(EleveDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         ObservableList<Eleve> list = FXCollections.observableArrayList(liste);

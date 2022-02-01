@@ -1,5 +1,7 @@
 package Models;
+
 public class Emploi {
+
     private int id;
     private int id_salle;
     private int id_assiste;
@@ -13,7 +15,8 @@ public class Emploi {
         id_heure = -1;
         id_day = -1;
     }
-     public Emploi(int day,int heure) {
+
+    public Emploi(int day, int heure) {
         id = -1;
         id_salle = -1;
         id_assiste = 1;

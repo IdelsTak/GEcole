@@ -1,6 +1,5 @@
 package GUI.eleve;
 
-
 import DAO.EleveDAO;
 import DAO.ParentDAO;
 import GUI.Tests;
@@ -65,7 +64,8 @@ public class ajoutEleveController implements Initializable {
     private JFXTextField telephone_parents;
     @FXML
     private JFXTextField email_parents;
-    @FXML JFXTextField nom_image;
+    @FXML
+    JFXTextField nom_image;
     @FXML
     private ImageView image;
     @FXML
@@ -104,14 +104,14 @@ public class ajoutEleveController implements Initializable {
     private Label lemail_parent;
     @FXML
     private JFXTextField lieu_naissance;
-    @FXML JFXButton action;
+    @FXML
+    JFXButton action;
 
-    private int id_el = -1,id_pa=-1;
+    private int id_el = -1, id_pa = -1;
     @FXML
     private JFXButton pressedbtn;
     @FXML
     private Label idLabel;
-
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -122,7 +122,7 @@ public class ajoutEleveController implements Initializable {
         new File("data/eleve").mkdirs();
     }
 
-    private void init(){
+    private void init() {
         date_naissance.setValue(LocalDate.now());
         date_naissance.getEditor().setEditable(false);
         date_naissance.setEditable(false);
@@ -159,17 +159,19 @@ public class ajoutEleveController implements Initializable {
         lemail_parent.setVisible(false);
         try {
             File f = new File(getClass().getResource("default-eleve.jpg").toURI());
-            if (Tests.image(f))
+            if (Tests.image(f)) {
                 set_image(f);
+            }
         } catch (Exception ex) {
         }
 
     }
+
     public void edit_eleve(int x) {
 
         action.setText("Modifier");
         idLabel.setVisible(true);
-        idLabel.setText(idLabel.getText()+x);
+        idLabel.setText(idLabel.getText() + x);
         id_el = x;
         action.setOnAction((e) -> {
             update_eleve(x);
@@ -220,6 +222,7 @@ public class ajoutEleveController implements Initializable {
             }
         }
     }
+
     @FXML
     private void goto_list(ActionEvent event) {
         Node source = (Node) event.getSource();
@@ -232,7 +235,7 @@ public class ajoutEleveController implements Initializable {
         }
     }
 
-    private void update_eleve(int x){
+    private void update_eleve(int x) {
         if (val()) {
             ParentDAO daop = new ParentDAO();
             Parent parents = new Parent(id_pa, nom_pere.getText(), nom_mere.getText(), profession_pere.getText(), profession_mere.getText(), telephone_parents.getText(), email_parents.getText());
@@ -245,7 +248,7 @@ public class ajoutEleveController implements Initializable {
             if (id_el != -1) {
                 LocalDate d = date_naissance.getValue();
                 String sex = garcon.isSelected() ? "H" : "F";
-                Eleve eleve = new Eleve(id_el, nom.getText(), prenom.getText(), addresse.getText(),ville.getSelectionModel().getSelectedItem(),Integer.parseInt(code_postal.getText()) , Date.from(d.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),lieu_naissance.getText(), sex,  email.getText(), id_pa , null);
+                Eleve eleve = new Eleve(id_el, nom.getText(), prenom.getText(), addresse.getText(), ville.getSelectionModel().getSelectedItem(), Integer.parseInt(code_postal.getText()), Date.from(d.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()), lieu_naissance.getText(), sex, email.getText(), id_pa, null);
 
                 daoe.update(eleve);
                 try {
@@ -255,7 +258,7 @@ public class ajoutEleveController implements Initializable {
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
-                 goto_list(new ActionEvent(action, action));
+                goto_list(new ActionEvent(action, action));
             }
         }
     }
@@ -269,7 +272,7 @@ public class ajoutEleveController implements Initializable {
             if (id_parents != -1) {
                 EleveDAO daoe = new EleveDAO();
                 LocalDate d = date_naissance.getValue();
-                Eleve eleve = new Eleve(id_el, nom.getText(), prenom.getText(), addresse.getText(),ville.getSelectionModel().getSelectedItem(),Integer.parseInt(code_postal.getText()) , Date.from(d.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),lieu_naissance.getText(), (garcon.isSelected() ? "H" : "F"),  email.getText(), id_parents , null);
+                Eleve eleve = new Eleve(id_el, nom.getText(), prenom.getText(), addresse.getText(), ville.getSelectionModel().getSelectedItem(), Integer.parseInt(code_postal.getText()), Date.from(d.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()), lieu_naissance.getText(), (garcon.isSelected() ? "H" : "F"), email.getText(), id_parents, null);
                 int id_eleve = daoe.create(eleve);
                 if (id_eleve != -1) {
                     eleve.setRef_p(id_parents);
@@ -282,7 +285,7 @@ public class ajoutEleveController implements Initializable {
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
-                     goto_list(new ActionEvent(action, action));
+                    goto_list(new ActionEvent(action, action));
                 } else {
                     // delete parent
                 }
@@ -306,8 +309,9 @@ public class ajoutEleveController implements Initializable {
                 new FileChooser.ExtensionFilter("PNG", "*.png")
         );
         File file = fileChooser.showOpenDialog(new javafx.stage.Stage());
-        if (Tests.image(file))
+        if (Tests.image(file)) {
             set_image(file);
+        }
     }
 
     @FXML
@@ -321,34 +325,35 @@ public class ajoutEleveController implements Initializable {
             System.out.println("erreur i/o: " + exception);
         }
     }
+
     private void set_image(File path) {
         try {
             BufferedImage bufferedImage = ImageIO.read(path);
             Image i = SwingFXUtils.toFXImage(bufferedImage, null);
-            if (Tests.image(path))
-            image.setImage(i);
+            if (Tests.image(path)) {
+                image.setImage(i);
+            }
         } catch (IOException x) {
             System.out.println(x);
         }
     }
 
-    private boolean val(){
+    private boolean val() {
         boolean success = true;
-        success=(Tests.email_field(email, lemail)&
-                Tests.txt_field(prenom, lprenom, 20, false,false)&
-                Tests.txt_field(nom,lnom, 20, false,false)&
-                Tests.date_naissance_field(date_naissance, ldate_naissance)&
-                Tests.txt_field(lieu_naissance,llieu_naissance,20,false,false)&
-                Tests.txt_field(addresse,laddresse,20,true,false)&
-                Tests.code_postal_field(code_postal,lcode_postal)&
-                Tests.ville_field(ville, lville)&
-                Tests.txt_field(nom_pere,lnom_pere,20,false,false)&
-                Tests.txt_field(nom_mere,lnom_mere,20,false,false)&
-                Tests.txt_field(profession_pere,lprofession_pere,20,false,false)&
-                Tests.txt_field(profession_mere,lprofession_mere,20,false,false)&
-                Tests.email_field(email_parents,lemail_parent)&
-                Tests.telephone_field(telephone_parents,ltelephone_parent)
-                );
+        success = (Tests.email_field(email, lemail)
+                & Tests.txt_field(prenom, lprenom, 20, false, false)
+                & Tests.txt_field(nom, lnom, 20, false, false)
+                & Tests.date_naissance_field(date_naissance, ldate_naissance)
+                & Tests.txt_field(lieu_naissance, llieu_naissance, 20, false, false)
+                & Tests.txt_field(addresse, laddresse, 20, true, false)
+                & Tests.code_postal_field(code_postal, lcode_postal)
+                & Tests.ville_field(ville, lville)
+                & Tests.txt_field(nom_pere, lnom_pere, 20, false, false)
+                & Tests.txt_field(nom_mere, lnom_mere, 20, false, false)
+                & Tests.txt_field(profession_pere, lprofession_pere, 20, false, false)
+                & Tests.txt_field(profession_mere, lprofession_mere, 20, false, false)
+                & Tests.email_field(email_parents, lemail_parent)
+                & Tests.telephone_field(telephone_parents, ltelephone_parent));
         return success;
     }
 }

@@ -1,6 +1,5 @@
 package GUI.inst;
 
-
 import DAO.InstituteurDAO;
 import GUI.Tests;
 import Models.Instituteur;
@@ -109,14 +108,13 @@ public class ajoutInstController implements Initializable {
     @FXML
     private Label idLabel;
 
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ToggleGroup group = new ToggleGroup();
         garcon.setToggleGroup(group);
         fille.setToggleGroup(group);
         new File("data/instituteur").mkdirs();
-        init();   
+        init();
     }
 
     private void init() {
@@ -124,7 +122,7 @@ public class ajoutInstController implements Initializable {
         date_embauchement.setValue(LocalDate.now());
         date_naissance.getEditor().setEditable(false);
         date_naissance.setEditable(false);
-         date_embauchement.getEditor().setEditable(false);
+        date_embauchement.getEditor().setEditable(false);
         date_embauchement.setEditable(false);
         garcon.setSelected(true);
         nom.setText("");
@@ -140,7 +138,7 @@ public class ajoutInstController implements Initializable {
         lville.setVisible(false);
         grade.getSelectionModel().clearSelection();
         grade.setItems(FXCollections.observableArrayList("Professeur", "Remplacant", "Stagiaire"));
-         grade.setValue("");
+        grade.setValue("");
         grade.setPromptText("Grade");
         lgrade.setVisible(false);
         addresse.setText("");
@@ -211,11 +209,11 @@ public class ajoutInstController implements Initializable {
                     grade.getSelectionModel().getSelectedItem(),
                     addresse.getText(),
                     ville.getSelectionModel().getSelectedItem(),
-                     email.getText(),
+                    email.getText(),
                     Integer.parseInt(code_postal.getText()),
-                            Integer.parseInt(telephone_1.getText()),
-                            Integer.parseInt(telephone_2.getText())
-                           );
+                    Integer.parseInt(telephone_1.getText()),
+                    Integer.parseInt(telephone_2.getText())
+            );
             int id_instituteur = dao.create(instituteur);
             // sauvegarde de l'image
             try {
@@ -225,12 +223,11 @@ public class ajoutInstController implements Initializable {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-            if (id_instituteur!=-1)
-                 goto_list(new ActionEvent(action, action));
+            if (id_instituteur != -1) {
+                goto_list(new ActionEvent(action, action));
+            }
         }
     }
-
-
 
     @FXML
     private void re_init(ActionEvent event) {
@@ -248,10 +245,12 @@ public class ajoutInstController implements Initializable {
                 new FileChooser.ExtensionFilter("PNG", "*.png")
         );
         File file = fileChooser.showOpenDialog(new javafx.stage.Stage());
-        if (Tests.image(file))
+        if (Tests.image(file)) {
             set_image(file);
+        }
     }
-        private void set_image(File path) {
+
+    private void set_image(File path) {
         try {
             BufferedImage bufferedImage = ImageIO.read(path);
             Image i = SwingFXUtils.toFXImage(bufferedImage, null);
@@ -276,6 +275,7 @@ public class ajoutInstController implements Initializable {
                 & Tests.telephone_field(telephone_1, ltelephone_1)
                 & Tests.telephone_field(telephone_2, ltelephone_2));
     }
+
     public void update_instituteur(int x) {
         if (val()) {
             LocalDate dn = date_naissance.getValue();
@@ -292,11 +292,11 @@ public class ajoutInstController implements Initializable {
                     grade.getSelectionModel().getSelectedItem(),
                     addresse.getText(),
                     ville.getSelectionModel().getSelectedItem(),
-                     email.getText(),
+                    email.getText(),
                     Integer.parseInt(code_postal.getText()),
-                            Integer.parseInt(telephone_1.getText()),
-                            Integer.parseInt(telephone_2.getText())
-                           );
+                    Integer.parseInt(telephone_1.getText()),
+                    Integer.parseInt(telephone_2.getText())
+            );
             dao.update(instituteur);
             try {
                 File outputFile = new File("data/instituteur/" + x + ".png");
@@ -305,14 +305,15 @@ public class ajoutInstController implements Initializable {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-             goto_list(new ActionEvent(action, action));
+            goto_list(new ActionEvent(action, action));
         }
     }
+
     public void edit_instituteur(int x) {
 
         action.setText("Modifier Instituteur");
         idLabel.setVisible(true);
-        idLabel.setText(idLabel.getText()+x);
+        idLabel.setText(idLabel.getText() + x);
         id_instituteur = x;
         action.setOnAction((e) -> {
             update_instituteur(x);

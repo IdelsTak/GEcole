@@ -12,20 +12,18 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 public class Print {
 
-    
-    
     public static void print_eleve(Eleve eleve) {
         PDDocument document = new PDDocument();
         PDPage page = new PDPage();
         document.addPage(page);
         PDFont font = PDType1Font.COURIER;
 
-        String id  = "Identifiant               = " + eleve.getId_e();
+        String id = "Identifiant               = " + eleve.getId_e();
         String nom = "Nom de l'eleve            = " + eleve.getNom() + " " + eleve.getPrenom();
-        String dn  = "Date et Lieu de Naissance = " + eleve.getDateNaiss() + "  a " + eleve.getLieuNaiss();
+        String dn = "Date et Lieu de Naissance = " + eleve.getDateNaiss() + "  a " + eleve.getLieuNaiss();
         try {
             PDPageContentStream contents = new PDPageContentStream(document, page);
-            
+
             contents.beginText();
             contents.setFont(font, 12);
             contents.newLineAtOffset(100, 700);
@@ -35,7 +33,7 @@ public class Print {
             contents.showText(nom);
             contents.newLine();
             contents.showText(dn);
-            
+
             contents.endText();
 
             contents.close();

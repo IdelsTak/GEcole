@@ -54,21 +54,21 @@ public class listMatiereController implements Initializable {
     @FXML
     private TableColumn<Matiere, String> coefCol;
     @FXML
-    private TableColumn<Matiere, String> descCol,modCol;
+    private TableColumn<Matiere, String> descCol, modCol;
     @FXML
     private TableColumn<Matiere, String> cochCol;
     @FXML
     private JFXTextField identifiant;
     @FXML
     private JFXTextField nom;
-    
-    public static int id_matiere_a_editer = -1 ;
-    
-     private ObservableList<Matiere> masterData = FXCollections.observableArrayList();
-     
-     private ArrayList<Integer> selected_ids = new ArrayList<Integer>();
 
-     Callback<TableColumn<Matiere, String>, TableCell<Matiere, String>> callback_fn_editer_matiere = new Callback<TableColumn<Matiere, String>, TableCell<Matiere, String>>() {
+    public static int id_matiere_a_editer = -1;
+
+    private ObservableList<Matiere> masterData = FXCollections.observableArrayList();
+
+    private ArrayList<Integer> selected_ids = new ArrayList<Integer>();
+
+    Callback<TableColumn<Matiere, String>, TableCell<Matiere, String>> callback_fn_editer_matiere = new Callback<TableColumn<Matiere, String>, TableCell<Matiere, String>>() {
         @Override
         public TableCell call(final TableColumn param) {
             final TableCell cell = new TableCell() {
@@ -98,8 +98,9 @@ public class listMatiereController implements Initializable {
                                         border.setCenter((AnchorPane) root);
                                         if (controller != null) {
                                             controller.edit_matiere(item.getId_m());
+                                        } else {
+                                            System.out.println("nul: ");
                                         }
-                                        else System.out.println("nul: ");
                                     } catch (Exception ex) {
                                         Logger.getLogger(listMatiereController.class.getName()).log(Level.SEVERE, null, ex);
                                     }
@@ -114,9 +115,8 @@ public class listMatiereController implements Initializable {
             return cell;
         }
     };
-    
 
-     Callback<TableColumn<Matiere, String>, TableCell<Matiere, String>> callback_fn_select_matiere = new Callback<TableColumn<Matiere, String>, TableCell<Matiere, String>>() {
+    Callback<TableColumn<Matiere, String>, TableCell<Matiere, String>> callback_fn_select_matiere = new Callback<TableColumn<Matiere, String>, TableCell<Matiere, String>>() {
         @Override
         public TableCell call(final TableColumn param) {
             final TableCell cell = new TableCell() {
@@ -156,21 +156,21 @@ public class listMatiereController implements Initializable {
     private TableColumn<?, ?> modifol;
     @FXML
     private JFXComboBox<?> module;
-     
-     private void update_selection() {
+
+    private void update_selection() {
         tableView.getSelectionModel().clearSelection();
         for (int i = 0; i < selected_ids.size(); i++) {
             tableView.getSelectionModel().select(selected_ids.get(i));
         }
     }
-     
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initCol();
-    }    
+    }
 
     @FXML
     private void goto_admin_main(ActionEvent event) {
@@ -184,6 +184,7 @@ public class listMatiereController implements Initializable {
             Logger.getLogger(listMatiereController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     @FXML
     private void user_selection(MouseEvent event) {
     }
@@ -219,7 +220,7 @@ public class listMatiereController implements Initializable {
         refresh();
         FilteredList<Matiere> filteredData = new FilteredList<>(masterData, p -> true);
 
-         nom.textProperty().addListener((observable, oldValue, newValue) -> {
+        nom.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(eleve -> {
 
                 if (newValue == null || newValue.isEmpty()) {
@@ -230,11 +231,11 @@ public class listMatiereController implements Initializable {
 
                 if (eleve.getNom().toLowerCase().contains(fullnameFilter)) {
                     return true;
-                } 
+                }
                 return false;
             });
         });
-         identifiant.textProperty().addListener((observable, oldValue, newValue) -> {
+        identifiant.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(eleve -> {
 
                 if (newValue == null || newValue.isEmpty()) {
@@ -242,16 +243,16 @@ public class listMatiereController implements Initializable {
                 }
 
                 String idFilter = newValue;
-                String ids = eleve.getId_m()+"";
+                String ids = eleve.getId_m() + "";
 
-                if (ids.contains(idFilter)){
+                if (ids.contains(idFilter)) {
                     return true;
                 }
                 return false;
             });
         });
 
-         // 3. Wrap the FilteredList in a SortedList.
+        // 3. Wrap the FilteredList in a SortedList.
         SortedList<Matiere> sortedData = new SortedList<>(filteredData);
 
         // 4. Bind the SortedList comparator to the TableView comparator.
@@ -285,10 +286,10 @@ public class listMatiereController implements Initializable {
     private void initCol() {
         idCol.setCellValueFactory(cellData -> cellData.getValue().idProperty().asString());
         nomCol.setCellValueFactory(cellData -> cellData.getValue().nomProperty());
-         coefCol.setCellValueFactory(cellData -> cellData.getValue().coefProperty().asString());
-         descCol.setCellValueFactory(cellData -> cellData.getValue().descProperty());
-         modCol.setCellFactory(callback_fn_editer_matiere);
-         cochCol.setCellFactory(callback_fn_select_matiere);
+        coefCol.setCellValueFactory(cellData -> cellData.getValue().coefProperty().asString());
+        descCol.setCellValueFactory(cellData -> cellData.getValue().descProperty());
+        modCol.setCellFactory(callback_fn_editer_matiere);
+        cochCol.setCellFactory(callback_fn_select_matiere);
         moduleCol.setCellValueFactory(cellData -> {
             int ref = cellData.getValue().getRef_module();
             if (ref != -1 && ref != 0) {
@@ -301,7 +302,7 @@ public class listMatiereController implements Initializable {
             return new SimpleStringProperty("aucun.");
         });
     }
-    
+
     private void refresh() {
         MatiereDAO dao = new MatiereDAO();
         tableView.getItems().clear();
@@ -333,5 +334,4 @@ public class listMatiereController implements Initializable {
         }
     }
 
-    
 }

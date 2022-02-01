@@ -10,11 +10,12 @@ package Models;
  * @author DELL
  */
 public class Assiste {
+
     private int id_assiste;
     private int ref_i;
     private int ref_c;
     private String ref_m;
-    
+
     public Assiste() {
     }
 
@@ -56,8 +57,4 @@ public class Assiste {
         this.ref_m = ref_m;
     }
 
-   
-
-
-    
 }

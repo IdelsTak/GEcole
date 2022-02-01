@@ -1,4 +1,3 @@
-
 package Models;
 
 import javafx.beans.property.SimpleFloatProperty;
@@ -6,7 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Matiere {
-    
+
     private SimpleIntegerProperty id_m;
     private SimpleStringProperty nom;
     private SimpleFloatProperty coef;
@@ -19,7 +18,7 @@ public class Matiere {
         this.coef = new SimpleFloatProperty(coef);
         this.desc = new SimpleStringProperty(desc);
     }
-    
+
     public Matiere() {
         this.id_m = new SimpleIntegerProperty();
         this.nom = new SimpleStringProperty("");
@@ -27,12 +26,14 @@ public class Matiere {
         this.desc = new SimpleStringProperty("");
     }
 
-    public void setRef_module(int ref){
+    public void setRef_module(int ref) {
         ref_module = ref;
     }
-    public int getRef_module(){
+
+    public int getRef_module() {
         return ref_module;
     }
+
     public int getId_m() {
         return id_m.get();
     }
@@ -64,20 +65,20 @@ public class Matiere {
     public void setDesc(String desc) {
         this.desc.set(desc);
     }
-    
-    public SimpleIntegerProperty idProperty(){
+
+    public SimpleIntegerProperty idProperty() {
         return new SimpleIntegerProperty(id_m.get());
     }
-    
-    public SimpleStringProperty nomProperty(){
+
+    public SimpleStringProperty nomProperty() {
         return new SimpleStringProperty(nom.get());
     }
-    
-    public SimpleFloatProperty coefProperty(){
+
+    public SimpleFloatProperty coefProperty() {
         return new SimpleFloatProperty(coef.get());
     }
-    
-    public SimpleStringProperty descProperty(){
+
+    public SimpleStringProperty descProperty() {
         return new SimpleStringProperty(desc.get());
     }
 }

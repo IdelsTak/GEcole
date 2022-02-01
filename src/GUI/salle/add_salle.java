@@ -1,4 +1,3 @@
-
 package GUI.salle;
 
 import DAO.SalleDAO;
@@ -27,24 +26,28 @@ import javafx.scene.paint.Color;
 
 public class add_salle implements Initializable {
 
-    @FXML private JFXButton action;
-    @FXML private JFXTextField nom,type_salle,capacite;
-    @FXML private JFXDatePicker date_salle;
-    @FXML private Label lnom,ltype_salle,lcapacite;
-    
+    @FXML
+    private JFXButton action;
+    @FXML
+    private JFXTextField nom, type_salle, capacite;
+    @FXML
+    private JFXDatePicker date_salle;
+    @FXML
+    private Label lnom, ltype_salle, lcapacite;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         init();
     }
-    private void init(){
-      type_salle.setText("");
-      capacite.setText("");
-      ltype_salle.setVisible(false);
-      lcapacite.setVisible(false);
-      date_salle.setValue(LocalDate.now());
-      date_salle.getEditor().setEditable(false);
-      date_salle.setEditable(false);
+
+    private void init() {
+        type_salle.setText("");
+        capacite.setText("");
+        ltype_salle.setVisible(false);
+        lcapacite.setVisible(false);
+        date_salle.setValue(LocalDate.now());
+        date_salle.getEditor().setEditable(false);
+        date_salle.setEditable(false);
     }
 
     @FXML
@@ -61,7 +64,7 @@ public class add_salle implements Initializable {
 
     @FXML
     private void goto_lister_salle(ActionEvent event) {
-         Node source = (Node) event.getSource();
+        Node source = (Node) event.getSource();
         Scene scene = (Scene) source.getScene();
         BorderPane border = (BorderPane) scene.getRoot();
         try {
@@ -73,7 +76,7 @@ public class add_salle implements Initializable {
 
     @FXML
     private void ajouter_salle(ActionEvent event) {
-        if(val()){
+        if (val()) {
             SalleDAO dao = new SalleDAO();
             LocalDate ds = date_salle.getValue();
             Salle s = new Salle();
@@ -91,13 +94,14 @@ public class add_salle implements Initializable {
     private void re_init(ActionEvent event) {
         init();
     }
-    
+
     private void set_e(JFXTextField n, Label l, String s) {
         n.setUnFocusColor(Color.RED);
         n.getStyleClass().add("fielderror");
         l.setText(s);
         l.setVisible(true);
     }
+
     private void unset_e(JFXTextField n, Label l) {
         n.setUnFocusColor(Color.GREEN);
         n.getStyleClass().add("txtfield");
@@ -105,45 +109,63 @@ public class add_salle implements Initializable {
         l.setText("");
         l.setVisible(false);
     }
+
     private boolean val() {
         unset_e(nom, lnom);
         unset_e(type_salle, ltype_salle);
         unset_e(capacite, lcapacite);
         boolean success = true;
         // nom salle
-        if (nom.getText().isEmpty() || nom.getText().matches("^\\s*$"))
-           {success = false;set_e(nom, lnom , "Nom de Salle ne doit pa etre vide");}
-        if (!nom.getText().matches("[a-zA-Z0-9]*"))
-            {success = false;set_e(nom, lnom , "Nom de Salle ne doit contenir que des lettres et des chiffres seulement");}
-        if (nom.getText().length()  > 19)
-            {success = false;set_e(nom, lnom , "Nom de Salle trop long!");}
+        if (nom.getText().isEmpty() || nom.getText().matches("^\\s*$")) {
+            success = false;
+            set_e(nom, lnom, "Nom de Salle ne doit pa etre vide");
+        }
+        if (!nom.getText().matches("[a-zA-Z0-9]*")) {
+            success = false;
+            set_e(nom, lnom, "Nom de Salle ne doit contenir que des lettres et des chiffres seulement");
+        }
+        if (nom.getText().length() > 19) {
+            success = false;
+            set_e(nom, lnom, "Nom de Salle trop long!");
+        }
         // type salle
-        if (type_salle.getText().isEmpty() || type_salle.getText().matches("^\\s*$"))
-           {success = false;set_e(type_salle, ltype_salle , "Type de Salle ne doit pas etre vide.");}
-        
-        if (type_salle.getText().length() > 19)
-           {success = false;set_e(type_salle, ltype_salle , "Type de Salle trop long.");}
-        
-        if (!type_salle.getText().matches(".*[a-zA-Z]*") || type_salle.getText().matches("[0-9]*") )
-            {success = false;set_e(type_salle, ltype_salle , "Type de Salle ne doit contenir que des lettres.");}
-        
+        if (type_salle.getText().isEmpty() || type_salle.getText().matches("^\\s*$")) {
+            success = false;
+            set_e(type_salle, ltype_salle, "Type de Salle ne doit pas etre vide.");
+        }
+
+        if (type_salle.getText().length() > 19) {
+            success = false;
+            set_e(type_salle, ltype_salle, "Type de Salle trop long.");
+        }
+
+        if (!type_salle.getText().matches(".*[a-zA-Z]*") || type_salle.getText().matches("[0-9]*")) {
+            success = false;
+            set_e(type_salle, ltype_salle, "Type de Salle ne doit contenir que des lettres.");
+        }
+
         // capacite salle
-        if (capacite.getText().isEmpty() || capacite.getText().matches("^\\s*$"))
-            {success = false;set_e(capacite, lcapacite , "Capacite de Salle ne doit contenir que des chiffres.");}
-        else {
+        if (capacite.getText().isEmpty() || capacite.getText().matches("^\\s*$")) {
+            success = false;
+            set_e(capacite, lcapacite, "Capacite de Salle ne doit contenir que des chiffres.");
+        } else {
             try {
                 int x = Integer.parseInt(capacite.getText());
-                if (x<1 || x > 99) 
-                    {success = false;set_e(capacite, lcapacite , "une Salle doit avoir une capacite dans l'intervalle  1 - 99 .");}
+                if (x < 1 || x > 99) {
+                    success = false;
+                    set_e(capacite, lcapacite, "une Salle doit avoir une capacite dans l'intervalle  1 - 99 .");
+                }
 
-                        
-            }catch(Exception ex){
-                {success = false;set_e(capacite, lcapacite , "Capacite de Salle ne doit contenir que des chiffres.");}
+            } catch (Exception ex) {
+                {
+                    success = false;
+                    set_e(capacite, lcapacite, "Capacite de Salle ne doit contenir que des chiffres.");
+                }
             }
         }
-       return success;
+        return success;
     }
-    
+
     private int id_salle = -1;
 
     void edit_salle(int x) {
@@ -157,15 +179,15 @@ public class add_salle implements Initializable {
         if (salle != null) {
             nom.setText(salle.getNom());
             type_salle.setText(salle.getType_salle());
-            capacite.setText(""+salle.getCapacite());
+            capacite.setText("" + salle.getCapacite());
             Instant instant = Instant.ofEpochMilli(salle.getDate_creation().getTime());
             date_salle.setValue(LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate());
 
-    }
+        }
     }
 
     private void update_salle(int x) {
-         if (val()) {
+        if (val()) {
             SalleDAO dao = new SalleDAO();
             Salle salle = new Salle();
             salle.setCapacite(Integer.parseInt(capacite.getText()));

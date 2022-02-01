@@ -28,11 +28,11 @@
 <?import java.net.URL?>
 
 <AnchorPane id="AnchorPane" prefHeight="584.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.emploi.list_emploi">
-        <stylesheets>
-       <URL value="@../css/dress.css" />
-       <URL value="@../css/mainStage.css" />
-       <URL value="@../css/mainwindow.css" />
-       <URL value="@../css/menusdef.css" />
+    <stylesheets>
+        <URL value="@../css/dress.css" />
+        <URL value="@../css/mainStage.css" />
+        <URL value="@../css/mainwindow.css" />
+        <URL value="@../css/menusdef.css" />
     </stylesheets>
     <children>
         <BorderPane prefHeight="584.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -60,17 +60,17 @@
                 <HBox prefHeight="66.0" prefWidth="1200.0" styleClass="upperbox" BorderPane.alignment="CENTER">
                     <children>
                         <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#goto_admin_main" prefHeight="71.0" prefWidth="62.0" styleClass="backbtn" stylesheets="@../css/menusdef.css">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                     <graphic>
-                        <ImageView fitHeight="55.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../image/back.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
+                            <HBox.margin>
+                                <Insets left="20.0" />
+                            </HBox.margin>
+                            <graphic>
+                                <ImageView fitHeight="55.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../image/back.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </JFXButton>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="74.0" prefWidth="217.0" text="Gestion des Emplois">
                             <font>
                                 <Font name="System Bold" size="18.0" />
@@ -95,13 +95,13 @@
                                 <TableColumn fx:id="colonne_nom_classe" minWidth="0.0" prefWidth="168.0" text="Nom Classe" />
                                 <TableColumn fx:id="colonne_niveau_classe" minWidth="0.0" prefWidth="156.0" text="Niveau Classe" />
                                 <TableColumn fx:id="colonne_nom_salle" editable="false" minWidth="0.0" prefWidth="100.0" text="Nom Salle" />
-                        <TableColumn fx:id="colonne_capacite" editable="false" minWidth="3.0" prefWidth="300.0" sortable="false" text="Capacite">
-                           <columns>
-                                      <TableColumn fx:id="colonne_capacite_classe" editable="false" minWidth="3.0" prefWidth="110.0" sortable="false" text="Capacite Classe" />
-                              <TableColumn fx:id="colonne_capacite_salle" editable="false" minWidth="0.0" prefWidth="102.0" text="Capacite Salle" />
-                           </columns>
-                        </TableColumn>
-                        <TableColumn fx:id="colonne_actions" editable="false" minWidth="3.0" prefWidth="211.0" sortable="false" text="Actions" />
+                                <TableColumn fx:id="colonne_capacite" editable="false" minWidth="3.0" prefWidth="300.0" sortable="false" text="Capacite">
+                                    <columns>
+                                        <TableColumn fx:id="colonne_capacite_classe" editable="false" minWidth="3.0" prefWidth="110.0" sortable="false" text="Capacite Classe" />
+                                        <TableColumn fx:id="colonne_capacite_salle" editable="false" minWidth="0.0" prefWidth="102.0" text="Capacite Salle" />
+                                    </columns>
+                                </TableColumn>
+                                <TableColumn fx:id="colonne_actions" editable="false" minWidth="3.0" prefWidth="211.0" sortable="false" text="Actions" />
                             </columns>
                         </TableView>
                         <GridPane prefHeight="71.0" prefWidth="1000.0">
@@ -115,9 +115,9 @@
                             </rowConstraints>
                             <children>
                                 <JFXComboBox fx:id="combobox_classe" prefHeight="25.0" prefWidth="448.0" promptText="Classe" unFocusColor="#009688" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                        <JFXComboBox fx:id="combobox_niveau" prefHeight="25.0" prefWidth="447.0" promptText="Niveau" unFocusColor="#009688" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                        <JFXComboBox fx:id="combobox_instituteur" layoutX="180.0" layoutY="85.0" prefHeight="25.0" prefWidth="444.0" promptText="Instituteur" unFocusColor="#009688" GridPane.halignment="CENTER" />
-                        <JFXComboBox fx:id="combobox_salle" layoutX="38.0" layoutY="15.0" prefHeight="25.0" prefWidth="444.0" promptText="Salle" unFocusColor="#009688" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                <JFXComboBox fx:id="combobox_niveau" prefHeight="25.0" prefWidth="447.0" promptText="Niveau" unFocusColor="#009688" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                                <JFXComboBox fx:id="combobox_instituteur" layoutX="180.0" layoutY="85.0" prefHeight="25.0" prefWidth="444.0" promptText="Instituteur" unFocusColor="#009688" GridPane.halignment="CENTER" />
+                                <JFXComboBox fx:id="combobox_salle" layoutX="38.0" layoutY="15.0" prefHeight="25.0" prefWidth="444.0" promptText="Salle" unFocusColor="#009688" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                             </children>
                         </GridPane>
                     </children>

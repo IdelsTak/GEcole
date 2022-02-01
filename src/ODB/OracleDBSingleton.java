@@ -9,11 +9,11 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class OracleDBSingleton {
+
     private static String username;
     private static String password;
-    private static String url ;
+    private static String url;
     private static String driver = "";
     private static String sql_cmd = "";
     private static Connection session;
@@ -32,7 +32,8 @@ public class OracleDBSingleton {
     private OracleDBSingleton() {
 
     }
-    public static boolean seConnecter(String url,String driver ,String username, String password) {
+
+    public static boolean seConnecter(String url, String driver, String username, String password) {
         boolean ok = false;
         sql_cmd = "";
         OracleDBSingleton.username = username;
@@ -48,12 +49,12 @@ public class OracleDBSingleton {
                 PreparedStatement statement = OracleDBSingleton.getSession().prepareStatement(sql_cmd);
                 ResultSet r = statement.executeQuery();
                 if (r.next()) {
-                    System.out.println("Connection a la BD reussie :") ;
+                    System.out.println("Connection a la BD reussie :");
                     return true;
                 }
                 return false;
             } catch (SQLException ex) {
-               Logger.getLogger(OracleDBSingleton.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OracleDBSingleton.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return false;
@@ -75,15 +76,15 @@ public class OracleDBSingleton {
         }
     }
 
-    public static int inst(int cin){
-        String requete = "SELECT ID_INST FROM INST WHERE NCIN = " + cin ;
+    public static int inst(int cin) {
+        String requete = "SELECT ID_INST FROM INST WHERE NCIN = " + cin;
         try {
             PreparedStatement ps = OracleDBSingleton.getSession().prepareStatement(requete);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 return rs.getInt("ID_INST");
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(OracleDBSingleton.class.getName()).log(Level.SEVERE, null, ex);
             return -1;

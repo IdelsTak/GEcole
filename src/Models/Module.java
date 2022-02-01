@@ -1,13 +1,11 @@
 package Models;
 
 public class Module {
-    
+
     private int id;
     private int ref_niv;
     private String nom;
 
-
-    
     public Module() {
     }
 

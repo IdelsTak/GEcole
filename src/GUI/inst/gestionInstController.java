@@ -73,7 +73,6 @@ public class gestionInstController implements Initializable {
     private ObservableList<Instituteur> data = FXCollections.observableArrayList();
     private ArrayList<Integer> selected_ids = new ArrayList<Integer>();
 
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         table_instituteur.getSelectionModel().setCellSelectionEnabled(false);
@@ -85,7 +84,7 @@ public class gestionInstController implements Initializable {
             return new SimpleStringProperty(cellData.getValue().getDateEmb().toString());
         });
         colonne_identifiant.setCellValueFactory(cellData -> {
-            return new SimpleStringProperty(""+cellData.getValue().getId_i());
+            return new SimpleStringProperty("" + cellData.getValue().getId_i());
         });
         colonne_sex.setCellValueFactory(cellData -> {
             return new SimpleStringProperty(cellData.getValue().getSex());
@@ -94,12 +93,13 @@ public class gestionInstController implements Initializable {
             return new SimpleStringProperty(cellData.getValue().getGrade());
         });
         colonne_matricule.setCellValueFactory(cellData -> {
-            return new SimpleStringProperty(""+cellData.getValue().getImmatricul());
+            return new SimpleStringProperty("" + cellData.getValue().getImmatricul());
         });
         colonne_modifier.setCellFactory(callback_fn_editer_instituteur);
         colonne_cocher.setCellFactory(callback_fn_select_instituteur);
-        
-        refresh();init_filters();
+
+        refresh();
+        init_filters();
     }
 
     Callback<TableColumn<Instituteur, String>, TableCell<Instituteur, String>> callback_fn_select_instituteur = new Callback<TableColumn<Instituteur, String>, TableCell<Instituteur, String>>() {
@@ -137,7 +137,7 @@ public class gestionInstController implements Initializable {
         }
     };
 
-     Callback<TableColumn<Instituteur, String>, TableCell<Instituteur, String>> callback_fn_editer_instituteur = new Callback<TableColumn<Instituteur, String>, TableCell<Instituteur, String>>() {
+    Callback<TableColumn<Instituteur, String>, TableCell<Instituteur, String>> callback_fn_editer_instituteur = new Callback<TableColumn<Instituteur, String>, TableCell<Instituteur, String>>() {
         @Override
         public TableCell call(final TableColumn param) {
             final TableCell cell = new TableCell() {
@@ -167,8 +167,9 @@ public class gestionInstController implements Initializable {
                                         border.setCenter((AnchorPane) root);
                                         if (controller != null) {
                                             controller.edit_instituteur(item.getId_i());
+                                        } else {
+                                            System.out.println("nul: ");
                                         }
-                                        else System.out.println("nul: ");
                                     } catch (Exception exception) {
                                         System.out.println("erreur i/o: " + exception);
                                     }
@@ -183,7 +184,9 @@ public class gestionInstController implements Initializable {
             return cell;
         }
     };
-    @FXML private void goto_admin_main(ActionEvent event) {
+
+    @FXML
+    private void goto_admin_main(ActionEvent event) {
         Node source = (Node) event.getSource();
         Scene scene = (Scene) source.getScene();
         BorderPane border = (BorderPane) scene.getRoot();
@@ -193,6 +196,7 @@ public class gestionInstController implements Initializable {
             System.out.println("erreur i/o: " + exception);
         }
     }
+
     @FXML
     private void goto_ajouter_instituteur(ActionEvent event) {
         Node source = (Node) event.getSource();
@@ -206,17 +210,19 @@ public class gestionInstController implements Initializable {
     }
 
     @FXML
-    private void chercher_instituteur(ActionEvent event) {}
-    private void init_filters(){
-         InstituteurDAO sdao = new InstituteurDAO();
+    private void chercher_instituteur(ActionEvent event) {
+    }
+
+    private void init_filters() {
+        InstituteurDAO sdao = new InstituteurDAO();
         data = sdao.getAll();
         table_instituteur.setItems(data);
         nom.setText("");
         identifiant.setText("");
         nom.setText("");
-        
+
         FilteredList<Instituteur> filteredData = new FilteredList<>(data, p -> true);
-        
+
         identifiant.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(inst -> {
                 if (newValue == null || newValue.isEmpty()) {
@@ -225,7 +231,7 @@ public class gestionInstController implements Initializable {
                 String fullnameFilter = newValue.toLowerCase();
                 if (String.valueOf(inst.getId_i()).toLowerCase().contains(fullnameFilter)) {
                     return true;
-                } 
+                }
                 return false;
             });
         });
@@ -237,7 +243,7 @@ public class gestionInstController implements Initializable {
                 String fullnameFilter = newValue.toLowerCase();
                 if (salle.getNom().toLowerCase().contains(fullnameFilter.toLowerCase()) || salle.getPrenom().toLowerCase().contains(fullnameFilter.toLowerCase())) {
                     return true;
-                } 
+                }
                 return false;
             });
         });
@@ -278,6 +284,7 @@ public class gestionInstController implements Initializable {
             System.out.println(exception);
         }
     }
+
     @FXML
     private void user_selection(MouseEvent event) {
         update_selection();
@@ -289,6 +296,7 @@ public class gestionInstController implements Initializable {
             table_instituteur.getSelectionModel().select(selected_ids.get(i));
         }
     }
+
     private void refresh() {
         InstituteurDAO dao = new InstituteurDAO();
         table_instituteur.getItems().clear();
